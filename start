@@ -17,7 +17,7 @@ hapus_bot_lama() {
     rm -f /etc/systemd/system/sellvpn.service
     rm -f /usr/bin/sellvpn /usr/bin/server_sellvpn /etc/cron.d/server_sellvpn
     rm -rf /root/BotVPN2
-    rm -rf /root/BotVPN22
+    rm -rf /root/BotVPN2
 
     # Hapus dari pm2 jika ada
     if command -v pm2 &> /dev/null; then
@@ -38,7 +38,7 @@ setup_bot() {
         npm install -g npm@latest
     fi
 
-    git clone https://github.com/vermiliion/BotVPN22.git /root/BotVPN2 || echo -e "${red}Gagal clone repo${neutral}"
+    git clone https://github.com/vermiliion/BotVPN2.git /root/BotVPN2 || echo -e "${red}Gagal clone repo${neutral}"
     npm install --prefix /root/BotVPN2 sqlite3 express crypto telegraf axios dotenv
 
     chmod +x /root/BotVPN2/*
