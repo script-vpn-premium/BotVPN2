@@ -282,17 +282,16 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*Hai Selamat Datang Di Bot ${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+  const messageText = `Hai, Welcome To Bot *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
 ╭─ Keunggulan Bot
-└ Beli VPN Jadi Lebih Mudah Dan Cepat
-└ Tanpa Harus Menuggu Admin Online
-└ Pembayaran Via Qris
-└ Contact : @freenet_on\\!
+└ Beli VPN Jadi Lebih Mudah
+└ Tanpa harus nunggu admin online
+└ Bisa bayar pakai Qris
 
 ╭─ Informasi Bot
-└🥇Uptime: ${days} Hari
-└🥈Server: ${jumlahServer}
-└🥉️User: ${jumlahPengguna}${topUsersText}
+└🍁Uptime: ${days} Hari
+└🍁Server: ${jumlahServer}
+└🍁User: ${jumlahPengguna}${topUsersText}
 
 *Silakan pilih opsi :*`;
 
@@ -755,7 +754,7 @@ async function sendAdminMenu(ctx) {
     ],
     [
       { text: '♂️ Edit Batas Create', callback_data: 'editserver_batas_create_akun' },
-      { text: '♂️ Edit Total Create', callback_data: 'editserver_total_create_akun' }
+      { text: '🌿 Edit Total Create', callback_data: 'editserver_total_create_akun' }
     ],
     [
       { text: '💵 Tambah Saldo', callback_data: 'addsaldo_user' },
