@@ -56,7 +56,11 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.di
    pm2 startup
    pm2 save
    ```
-
+## Uninstall Bot
+- Paste Perintah ini di vps
+```
+wget -O hapus.sh https://raw.githubusercontent.com/vermiliion/BotVPN2/main/hapus.sh && chmod +x hapus.sh && ./hapus.sh
+```
 ## Konfigurasi QRIS
 
 Untuk menggunakan sistem pembayaran QRIS, Anda perlu menyiapkan:
