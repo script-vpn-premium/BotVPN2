@@ -168,7 +168,7 @@ bot.command('admin', async (ctx) => {
 async function sendMainMenu(ctx) {
   const keyboard = [
     [
-      { text: '✏️ Buat Akun', callback_data: 'service_create' },
+      { text: '➕ Buat Akun', callback_data: 'service_create' },
       { text: '♻️ Perpanjang Akun', callback_data: 'service_renew' }
     ],
     [
@@ -281,20 +281,20 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*Hai Selamat Datang Di Bot*🛸
-_Auto Order VPN${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}_ 🚀
-╭─ *Keunggulan Bot*
-└ Beli VPN Jadi Lebih Mudah Dan Cepat
-└ Tanpa Harus Menuggu Admin Online
-└ Pembayaran Via Qris
-└ Contact : @freenet_on\\!
+  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+_Powered by FTVPN_
+
+╭─ *Bot VPN Otomatis*
+├ Bot VPN serba otomatis untuk membeli
+├ layanan VPN dengan mudah dan cepat
+└ Nikmati kemudahan dan kecepatan dalam layanan VPN dengan bot kami\\!
 
 ╭─ *Informasi Bot*
-└🥇Uptime: ${days} Hari
-└🥈Server: ${jumlahServer}
-└🥉️User: ${jumlahPengguna}${topUsersText}
+├ ⏳ Uptime: ${days} Hari
+├ 🌐 Server: ${jumlahServer}
+└ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
 
-*Silakan pilih opsi :*`;
+*Silakan pilih opsi layanan:*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -707,14 +707,14 @@ async function handleServiceAction(ctx, action) {
       [{ text: 'Buat Ssh/Ovpn', callback_data: 'create_ssh' }],      
       [{ text: 'Buat Vmess', callback_data: 'create_vmess' }, { text: 'Buat Vless', callback_data: 'create_vless' }],
       [{ text: 'Buat Trojan', callback_data: 'create_trojan' }, { text: 'Buat Shadowsocks', callback_data: 'create_shadowsocks' }],
-      [{ text: '⏮️ Kembali', callback_data: 'send_main_menu' }]
+      [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
     keyboard = [
       [{ text: 'Perpanjang Ssh/Ovpn', callback_data: 'renew_ssh' }],      
       [{ text: 'Perpanjang Vmess', callback_data: 'renew_vmess' }, { text: 'Perpanjang Vless', callback_data: 'renew_vless' }],
       [{ text: 'Perpanjang Trojan', callback_data: 'renew_trojan' }, { text: 'Perpanjang Shadowsocks', callback_data: 'renew_shadowsocks' }],
-      [{ text: '⏮️ Kembali', callback_data: 'send_main_menu' }]
+      [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } 
   try {
@@ -738,7 +738,7 @@ async function handleServiceAction(ctx, action) {
 async function sendAdminMenu(ctx) {
   const adminKeyboard = [
     [
-      { text: '✏️ Tambah Server', callback_data: 'addserver' },
+      { text: '➕ Tambah Server', callback_data: 'addserver' },
       { text: '❌ Hapus Server', callback_data: 'deleteserver' }
     ],
     [
@@ -746,16 +746,16 @@ async function sendAdminMenu(ctx) {
       { text: '📝 Edit Nama', callback_data: 'nama_server_edit' }
     ],
     [
-      { text: '💡 Edit Domain', callback_data: 'editserver_domain' },
+      { text: '🌐 Edit Domain', callback_data: 'editserver_domain' },
       { text: '🔑 Edit Auth', callback_data: 'editserver_auth' }
     ],
     [
-      { text: '🍀 Edit Quota', callback_data: 'editserver_quota' },
+      { text: '📊 Edit Quota', callback_data: 'editserver_quota' },
       { text: '📶 Edit Limit IP', callback_data: 'editserver_limit_ip' }
     ],
     [
-      { text: '♂️ Edit Batas Create', callback_data: 'editserver_batas_create_akun' },
-      { text: '♂️ Edit Total Create', callback_data: 'editserver_total_create_akun' }
+      { text: '🔢 Edit Batas Create', callback_data: 'editserver_batas_create_akun' },
+      { text: '🔢 Edit Total Create', callback_data: 'editserver_total_create_akun' }
     ],
     [
       { text: '💵 Tambah Saldo', callback_data: 'addsaldo_user' },
@@ -766,7 +766,7 @@ async function sendAdminMenu(ctx) {
       { text: 'ℹ️ Detail Server', callback_data: 'detailserver' }
     ],
     [
-      { text: '⏮️ Kembali', callback_data: 'send_main_menu' }
+      { text: '🔙 Kembali', callback_data: 'send_main_menu' }
     ]
   ];
 
@@ -928,16 +928,16 @@ async function startSelectServer(ctx, action, type, page = 0) {
       if (navButtons.length > 0) {
         keyboard.push(navButtons);
       }
-      keyboard.push([{ text: '⏮️ Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
+      keyboard.push([{ text: '🔙 Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
 
       const serverList = currentServers.map(server => {
         const hargaPer30Hari = server.harga * 30; 
         const isFull = server.total_create_akun >= server.batas_create_akun;
-        return `💡 *${server.nama_server}*\n` +
+        return `🌐 *${server.nama_server}*\n` +
                `💰 Harga per hari: Rp${server.harga}\n` +
                `📅 Harga per 30 hari: Rp${hargaPer30Hari}\n` +
-               `🍀 Quota: ${server.quota}GB\n` +
-               `♂️ Limit IP: ${server.iplimit} IP\n` +
+               `📊 Quota: ${server.quota}GB\n` +
+               `🔢 Limit IP: ${server.iplimit} IP\n` +
                (isFull ? `⚠️ *Server Penuh*` : `👥 Total Create Akun: ${server.total_create_akun}/${server.batas_create_akun}`);
       }).join('\n\n');
 
@@ -1175,7 +1175,7 @@ bot.on('text', async (ctx) => {
 
     state.step = 'addserver_quota';
     state.nama_server = nama_server;
-    await ctx.reply('🍀 *Silakan masukkan quota server:*', { parse_mode: 'Markdown' });
+    await ctx.reply('📊 *Silakan masukkan quota server:*', { parse_mode: 'Markdown' });
   } else if (state.step === 'addserver_quota') {
     const quota = parseInt(ctx.message.text.trim(), 10);
     if (isNaN(quota)) {
@@ -1185,7 +1185,7 @@ bot.on('text', async (ctx) => {
 
     state.step = 'addserver_iplimit';
     state.quota = quota;
-    await ctx.reply('♂️ *Silakan masukkan limit IP server:*', { parse_mode: 'Markdown' });
+    await ctx.reply('🔢 *Silakan masukkan limit IP server:*', { parse_mode: 'Markdown' });
   } else if (state.step === 'addserver_iplimit') {
     const iplimit = parseInt(ctx.message.text.trim(), 10);
     if (isNaN(iplimit)) {
@@ -1195,7 +1195,7 @@ bot.on('text', async (ctx) => {
 
     state.step = 'addserver_batas_create_akun';
     state.iplimit = iplimit;
-    await ctx.reply('♂️ *Silakan masukkan batas create akun server:*', { parse_mode: 'Markdown' });
+    await ctx.reply('🔢 *Silakan masukkan batas create akun server:*', { parse_mode: 'Markdown' });
   } else if (state.step === 'addserver_batas_create_akun') {
     const batas_create_akun = parseInt(ctx.message.text.trim(), 10);
     if (isNaN(batas_create_akun)) {
@@ -1236,7 +1236,7 @@ bot.action('addserver', async (ctx) => {
   try {
     logger.info('📥 Proses tambah server dimulai');
     await ctx.answerCbQuery();
-    await ctx.reply('💡 *Silakan masukkan domain/ip server:*', { parse_mode: 'Markdown' });
+    await ctx.reply('🌐 *Silakan masukkan domain/ip server:*', { parse_mode: 'Markdown' });
     userState[ctx.chat.id] = { step: 'addserver' };
   } catch (error) {
     logger.error('❌ Kesalahan saat memulai proses tambah server:', error);
@@ -1387,7 +1387,7 @@ bot.action('deleteserver', async (ctx) => {
       const keyboard = servers.map(server => {
         return [{ text: server.nama_server, callback_data: `confirm_delete_server_${server.id}` }];
       });
-      keyboard.push([{ text: '⏮️ Kembali ke Menu Utama', callback_data: 'kembali_ke_menu' }]);
+      keyboard.push([{ text: '🔙 Kembali ke Menu Utama', callback_data: 'kembali_ke_menu' }]);
 
       ctx.reply('🗑️ *Pilih server yang ingin dihapus:*', {
         reply_markup: {
@@ -1491,7 +1491,7 @@ bot.action('addsaldo_user', async (ctx) => {
       }]);
     }
 
-    await ctx.reply('🍀 *Silakan pilih user untuk menambahkan saldo:*', {
+    await ctx.reply('📊 *Silakan pilih user untuk menambahkan saldo:*', {
       reply_markup: replyMarkup,
       parse_mode: 'Markdown'
     });
@@ -1674,7 +1674,7 @@ bot.action('editserver_limit_ip', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('🍀 *Silakan pilih server untuk mengedit limit IP:*', {
+    await ctx.reply('📊 *Silakan pilih server untuk mengedit limit IP:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1712,7 +1712,7 @@ bot.action('editserver_batas_create_akun', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('🍀 *Silakan pilih server untuk mengedit batas create akun:*', {
+    await ctx.reply('📊 *Silakan pilih server untuk mengedit batas create akun:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1750,7 +1750,7 @@ bot.action('editserver_total_create_akun', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('🍀 *Silakan pilih server untuk mengedit total create akun:*', {
+    await ctx.reply('📊 *Silakan pilih server untuk mengedit total create akun:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1788,7 +1788,7 @@ bot.action('editserver_quota', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('🍀 *Silakan pilih server untuk mengedit quota:*', {
+    await ctx.reply('📊 *Silakan pilih server untuk mengedit quota:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1826,7 +1826,7 @@ bot.action('editserver_auth', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('💡 *Silakan pilih server untuk mengedit auth:*', {
+    await ctx.reply('🌐 *Silakan pilih server untuk mengedit auth:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1904,7 +1904,7 @@ bot.action('editserver_domain', async (ctx) => {
       inlineKeyboard.push(buttons.slice(i, i + 2));
     }
 
-    await ctx.reply('💡 *Silakan pilih server untuk mengedit domain:*', {
+    await ctx.reply('🌐 *Silakan pilih server untuk mengedit domain:*', {
       reply_markup: { inline_keyboard: inlineKeyboard },
       parse_mode: 'Markdown'
     });
@@ -1997,7 +1997,7 @@ bot.action(/add_saldo_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk menambahkan saldo user dengan ID: ${userId}`);
   userState[ctx.chat.id] = { step: 'add_saldo', userId: userId };
 
-  await ctx.reply('🍀 *Silakan masukkan jumlah saldo yang ingin ditambahkan:*', {
+  await ctx.reply('📊 *Silakan masukkan jumlah saldo yang ingin ditambahkan:*', {
     reply_markup: { inline_keyboard: keyboard_nomor() },
     parse_mode: 'Markdown'
   });
@@ -2007,7 +2007,7 @@ bot.action(/edit_batas_create_akun_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit batas create akun server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_batas_create_akun', serverId: serverId };
 
-  await ctx.reply('🍀 *Silakan masukkan batas create akun server baru:*', {
+  await ctx.reply('📊 *Silakan masukkan batas create akun server baru:*', {
     reply_markup: { inline_keyboard: keyboard_nomor() },
     parse_mode: 'Markdown'
   });
@@ -2017,7 +2017,7 @@ bot.action(/edit_total_create_akun_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit total create akun server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_total_create_akun', serverId: serverId };
 
-  await ctx.reply('🍀 *Silakan masukkan total create akun server baru:*', {
+  await ctx.reply('📊 *Silakan masukkan total create akun server baru:*', {
     reply_markup: { inline_keyboard: keyboard_nomor() },
     parse_mode: 'Markdown'
   });
@@ -2027,7 +2027,7 @@ bot.action(/edit_limit_ip_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit limit IP server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_limit_ip', serverId: serverId };
 
-  await ctx.reply('🍀 *Silakan masukkan limit IP server baru:*', {
+  await ctx.reply('📊 *Silakan masukkan limit IP server baru:*', {
     reply_markup: { inline_keyboard: keyboard_nomor() },
     parse_mode: 'Markdown'
   });
@@ -2037,7 +2037,7 @@ bot.action(/edit_quota_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit quota server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_quota', serverId: serverId };
 
-  await ctx.reply('🍀 *Silakan masukkan quota server baru:*', {
+  await ctx.reply('📊 *Silakan masukkan quota server baru:*', {
     reply_markup: { inline_keyboard: keyboard_nomor() },
     parse_mode: 'Markdown'
   });
@@ -2047,7 +2047,7 @@ bot.action(/edit_auth_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit auth server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_auth', serverId: serverId };
 
-  await ctx.reply('💡 *Silakan masukkan auth server baru:*', {
+  await ctx.reply('🌐 *Silakan masukkan auth server baru:*', {
     reply_markup: { inline_keyboard: keyboard_full() },
     parse_mode: 'Markdown'
   });
@@ -2057,7 +2057,7 @@ bot.action(/edit_domain_(\d+)/, async (ctx) => {
   logger.info(`User ${ctx.from.id} memilih untuk mengedit domain server dengan ID: ${serverId}`);
   userState[ctx.chat.id] = { step: 'edit_domain', serverId: serverId };
 
-  await ctx.reply('💡 *Silakan masukkan domain server baru:*', {
+  await ctx.reply('🌐 *Silakan masukkan domain server baru:*', {
     reply_markup: { inline_keyboard: keyboard_full() },
     parse_mode: 'Markdown'
   });
@@ -2112,12 +2112,12 @@ bot.action(/server_detail_(\d+)/, async (ctx) => {
     }
 
     const serverDetails = `📋 *Detail Server* 📋\n\n` +
-      `💡 *Domain:* \`${server.domain}\`\n` +
+      `🌐 *Domain:* \`${server.domain}\`\n` +
       `🔑 *Auth:* \`${server.auth}\`\n` +
       `🏷️ *Nama Server:* \`${server.nama_server}\`\n` +
-      `🍀 *Quota:* \`${server.quota}\`\n` +
+      `📊 *Quota:* \`${server.quota}\`\n` +
       `📶 *Limit IP:* \`${server.iplimit}\`\n` +
-      `♂️ *Batas Create Akun:* \`${server.batas_create_akun}\`\n` +
+      `🔢 *Batas Create Akun:* \`${server.batas_create_akun}\`\n` +
       `📋 *Total Create Akun:* \`${server.total_create_akun}\`\n` +
       `💵 *Harga:* \`Rp ${server.harga}\`\n\n`;
 
@@ -2240,7 +2240,7 @@ async function handleAddSaldo(ctx, userStateData, data) {
   }
 
   userStateData.saldo = currentSaldo;
-  const newMessage = `🍀 *Silakan masukkan jumlah saldo yang ingin ditambahkan:*\n\nJumlah saldo saat ini: *${currentSaldo}*`;
+  const newMessage = `📊 *Silakan masukkan jumlah saldo yang ingin ditambahkan:*\n\nJumlah saldo saat ini: *${currentSaldo}*`;
   if (newMessage !== ctx.callbackQuery.message.text) {
     await ctx.editMessageText(newMessage, {
       reply_markup: { inline_keyboard: keyboard_nomor() },
@@ -2348,7 +2348,7 @@ async function handleEditField(ctx, userStateData, data, field, fieldName, query
   }
 
   userStateData[field] = currentValue;
-  const newMessage = `🍀 *Silakan masukkan ${fieldName} server baru:*\n\n${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} saat ini: *${currentValue}*`;
+  const newMessage = `📊 *Silakan masukkan ${fieldName} server baru:*\n\n${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} saat ini: *${currentValue}*`;
   if (newMessage !== ctx.callbackQuery.message.text) {
     await ctx.editMessageText(newMessage, {
       reply_markup: { inline_keyboard: keyboard_nomor() },
@@ -2553,8 +2553,8 @@ function keyboard_abc() {
     }));
     buttons.push(row);
   }
-  buttons.push([{ text: '⏮️ Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
-  buttons.push([{ text: '⏮️ Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
+  buttons.push([{ text: '🔙 Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
+  buttons.push([{ text: '🔙 Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
   return buttons;
 }
 
@@ -2568,8 +2568,8 @@ function keyboard_nomor() {
     }));
     buttons.push(row);
   }
-  buttons.push([{ text: '⏮️ Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
-  buttons.push([{ text: '⏮️ Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
+  buttons.push([{ text: '🔙 Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
+  buttons.push([{ text: '🔙 Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
   return buttons;
 }
 
@@ -2583,8 +2583,8 @@ function keyboard_full() {
     }));
     buttons.push(row);
   }
-  buttons.push([{ text: '⏮️ Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
-  buttons.push([{ text: '⏮️ Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
+  buttons.push([{ text: '🔙 Hapus', callback_data: 'delete' }, { text: '✅ Konfirmasi', callback_data: 'confirm' }]);
+  buttons.push([{ text: '🔙 Kembali ke Menu Utama', callback_data: 'send_main_menu' }]);
   return buttons;
 }
 
