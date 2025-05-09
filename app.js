@@ -45,7 +45,8 @@ const {
 } = require('./modules/renew');
 
 const fs = require('fs');
-const vars = JSON.parse(fs.readFileSync('./.vars.json', 'utf8'));
+const path = require('path');
+const vars = JSON.parse(fs.readFileSync(path.join(__dirname, '.vars.json'), 'utf8'));
 
 const BOT_TOKEN = vars.BOT_TOKEN;
 const port = vars.PORT || 50123;
