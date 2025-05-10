@@ -282,21 +282,16 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*Hai, Welcome To Bot ${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-  ━━━━━━━━━━━━━━━━━━━━━━
-🤖*Bot VPN Otomatis*
-♀️Beli VPN Jadi Lebih Mudah
-♂️Tanpa harus nunggu admin online
-🥏Bisa bayar pakai Qris
-━━━━━━━━━━━━━━━━━━━━━━
-🛸*Informasi Bot*
-🌀*Uptime*: ${days} Hari
-🌐*Server*: ${jumlahServer}
-🗣️*User*: ${jumlahPengguna}${topUsersText}
-💳*Saldo*: Rp${row.saldo}
+  const messageText = `Hai, Welcome To Bot *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+╭─ Keunggulan Bot
+└ Beli VPN Jadi Lebih Mudah
+└ Tanpa harus nunggu admin online
+└ Bisa bayar pakai Qris
 
-🍁Channel : @freenetlite
-📒Chat Support : @freenet_on
+╭─ Informasi Bot
+└🍁Uptime: ${days} Hari
+└🍁Server: ${jumlahServer}
+└🍁User: ${jumlahPengguna}${topUsersText}
 
 *Silakan pilih opsi :*`;
 
@@ -2418,7 +2413,7 @@ const qris = new QRISPayment({
     merchantId: MERCHANT_ID,
     apiKey: API_KEY,
     baseQrString: DATA_QRIS,
-    logoPath: path.join(__dirname, 'logo.png')
+    logoPath: 'logo.png'
 });
 
 async function processDeposit(ctx, amount) {
