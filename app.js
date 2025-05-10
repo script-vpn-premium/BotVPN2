@@ -282,16 +282,21 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `Hai, Welcome To Bot *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-╭─ Keunggulan Bot
-└ Beli VPN Jadi Lebih Mudah
-└ Tanpa harus nunggu admin online
-└ Bisa bayar pakai Qris
+  const messageText = `*Hai, Welcome To Bot ${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+  ━━━━━━━━━━━━━━━━━━━━━━
+🤖*Bot VPN Otomatis*
+♀️Beli VPN Jadi Lebih Mudah
+♂️Tanpa harus nunggu admin online
+🥏Bisa bayar pakai Qris
+━━━━━━━━━━━━━━━━━━━━━━
+🛸*Informasi Bot*
+🌀*Uptime*: ${days} Hari
+🌐*Server*: ${jumlahServer}
+🗣️*User*: ${jumlahPengguna}${topUsersText}
+💳*Saldo*: Rp${row.saldo}
 
-╭─ Informasi Bot
-└🍁Uptime: ${days} Hari
-└🍁Server: ${jumlahServer}
-└🍁User: ${jumlahPengguna}${topUsersText}
+🍁Channel : @freenetlite
+📒Chat Support : @freenet_on
 
 *Silakan pilih opsi :*`;
 
@@ -1184,7 +1189,7 @@ bot.on('text', async (ctx) => {
 
     state.step = 'addserver_iplimit';
     state.quota = quota;
-    await ctx.reply('♂️ *Silakan masukkan limit IP server:*', { parse_mode: 'Markdown' });
+    await ctx.reply('🌀 *Silakan masukkan limit IP server:*', { parse_mode: 'Markdown' });
   } else if (state.step === 'addserver_iplimit') {
     const iplimit = parseInt(ctx.message.text.trim(), 10);
     if (isNaN(iplimit)) {
@@ -2413,7 +2418,7 @@ const qris = new QRISPayment({
     merchantId: MERCHANT_ID,
     apiKey: API_KEY,
     baseQrString: DATA_QRIS,
-    logoPath: 'logo.png'
+    logoPath: path.join(__dirname, 'logo.png')
 });
 
 async function processDeposit(ctx, amount) {
