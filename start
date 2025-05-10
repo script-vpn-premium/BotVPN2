@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Colors
 green="\e[38;5;82m"
 red="\e[38;5;196m"
@@ -57,6 +56,50 @@ hapus_bot_lama() {
     echo -e "${green}Bot lama berhasil dihapus.${neutral}"
 }
 
+pasang_package() {
+  echo -e "${blue}Memulai pengecekan dan instalasi dependensi...${reset}"
+
+  # Cek dan install npm saja (tanpa node)
+  if ! command -v npm >/dev/null 2>&1; then
+    echo -e "${orange}Menginstall npm...${reset}"
+    apt update && apt install -y npm
+  else
+    echo -e "${green}npm sudah terinstall.${reset}"
+  fi
+
+  # PM2
+  if ! command -v pm2 >/dev/null 2>&1; then
+    echo -e "${orange} Menginstall PM2...${reset}"
+    npm install -g pm2
+  else
+    echo -e "${green} PM2 sudah terinstall.${reset}"
+  fi
+
+  # Daftar dependensi APT
+  dependencies=(
+    build-essential
+    libcairo2-dev
+    libpango1.0-dev
+    libjpeg-dev
+    libgif-dev
+    librsvg2-dev
+    pkg-config
+    libpixman-1-dev
+  )
+
+  for pkg in "${dependencies[@]}"; do
+    if dpkg -s "$pkg" >/dev/null 2>&1; then
+      echo -e "${green} $pkg sudah terinstall.${reset}"
+    else
+      echo -e "${yellow} Menginstall $pkg...${reset}"
+      apt install -y "$pkg"
+    fi
+  done
+
+  echo -e "${pink} Semua dependensi telah diperiksa dan diinstal bila diperlukan.${reset}"
+}
+
+
 cek_status() {
     pm2 status | grep -q sellvpn && echo "aktif" || echo "nonaktif"
 }
@@ -88,12 +131,12 @@ setup_bot() {
 server_app() {
     clear
     echo -e "${orange}─────────────────────────────────────────${neutral}"
-    echo -e "   ${green}.:::. BOT SELLVPN TELEGRAM .:::.   ${neutral}"
+    echo -e "${green}- BOT SELLVPN TELEGRAM MOD BY LITE${neutral}"
     echo -e "${orange}─────────────────────────────────────────${neutral}"
-    echo -e "       ${green}•${neutral} server create user"
-    echo -e "       ${green}•${neutral} server delete user"
-    echo -e "       ${green}•${neutral} server addsaldo user"
-    echo -e "       ${green}•${neutral} server ceksaldo user"
+    echo -e "${green}-${neutral} server create user"
+    echo -e "${green}-${neutral} server delete user"
+    echo -e "${green}-${neutral} server addsaldo user"
+    echo -e "${green}-${neutral} server ceksaldo user"
     echo -e "${orange}─────────────────────────────────────────${neutral}"
     read -p "Masukkan token bot: " token
     while [ -z "$token" ]; do
@@ -147,7 +190,7 @@ server_app() {
     pm2 save
 
     printf "\033[5A\033[0J"
-    echo -e "       Status Server is "$(cek_status)""
+    echo -e "- Status Server is "$(cek_status)""
     echo -e "${orange}─────────────────────────────────────────${neutral}"
     echo -e "${green}Bot has been installed and running.${neutral}"
     echo -e "${green}Type ${bold_white}/start${neutral} or ${bold_white}menu${neutral} in the telegram bot${neutral}"
@@ -155,6 +198,7 @@ server_app() {
 
 if [[ ${1} == "sellvpn" ]]; then
     hapus_bot_lama
+    pasang_package
     setup_bot
     server_app
 else
