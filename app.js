@@ -282,16 +282,15 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `Hai, Welcome To Bot *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-╭─ Keunggulan Bot
-└ Beli VPN Jadi Lebih Mudah
-└ Tanpa harus nunggu admin online
-└ Bisa bayar pakai Qris
+  const messageText = `*Hai, Welcome To Bot ${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+╭Bot VPN Otomatis
+├Beli VPN Jadi Lebih Mudah
+├Tanpa Nunggu Admin Online
+└Bisa Bayar Pakai Qris
 
-╭─ Informasi Bot
-└🍁Uptime: ${days} Hari
-└🍁Server: ${jumlahServer}
-└🍁User: ${jumlahPengguna}${topUsersText}
+📗 Uptime: ${days} Hari
+📔 Server: ${jumlahServer}
+📚 User: ${jumlahPengguna}${topUsersText}
 
 *Silakan pilih opsi :*`;
 
@@ -2413,7 +2412,7 @@ const qris = new QRISPayment({
     merchantId: MERCHANT_ID,
     apiKey: API_KEY,
     baseQrString: DATA_QRIS,
-    logoPath: 'logo.png'
+    logoPath: path.join(__dirname, 'logo.png')
 });
 
 async function processDeposit(ctx, amount) {
