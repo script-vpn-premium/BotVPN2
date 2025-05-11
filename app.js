@@ -2708,3 +2708,41 @@ app.listen(port, () => {
   });
   logger.info(`Server berjalan di port ${port}`);
 });
+
+
+// Fungsi untuk memproses top-up jika belum diproses
+async function prosesTopUp(userId, kodeUnik, amount) {
+  return new Promise((resolve, reject) => {
+    db.get("SELECT processed FROM pending_deposits WHERE unique_code = ?", [kodeUnik], (err, row) => {
+      if (err) return reject(err);
+      if (!row || row.processed) return resolve(false); // Sudah diproses atau tidak ditemukan
+
+      db.run("UPDATE users SET saldo = saldo + ? WHERE user_id = ?", [amount, userId], (err) => {
+        if (err) return reject(err);
+        db.run("UPDATE pending_deposits SET processed = 1 WHERE unique_code = ?", [kodeUnik], (err) => {
+          if (err) return reject(err);
+          resolve(true);
+        });
+      });
+    });
+  });
+}
+
+
+bot.action(/batal_topup_(.+)/, async (ctx) => {
+  const kode = ctx.match[1];
+  const userId = ctx.from.id;
+
+  db.get("SELECT * FROM pending_deposits WHERE unique_code = ? AND user_id = ? AND processed = 0", [kode, userId], (err, row) => {
+    if (err || !row) {
+      return ctx.reply("❌ Tidak ada transaksi yang bisa dibatalkan atau sudah diproses.");
+    }
+
+    db.run("DELETE FROM pending_deposits WHERE unique_code = ?", [kode], (err) => {
+      if (err) {
+        return ctx.reply("❌ Gagal membatalkan transaksi.");
+      }
+      ctx.reply("✅ Transaksi top up berhasil dibatalkan.");
+    });
+  });
+});
