@@ -188,6 +188,10 @@ server_app() {
 
     pm2 start /root/BotVPN2/app.js --name sellvpn --env production -- --token "$token" --adminid "$adminid" --namastore "$namastore" --dataqris "$dataqris" --merchantid "$merchantid" --apikey "$apikey"
     pm2 save
+    pm2 stop sellvpn
+    pm2 delete sellvpn
+    pm2 start app.js --name sellvpn --cwd /root/BotVPN2
+    pm2 save
 
     printf "\033[5A\033[0J"
     echo -e "- Status Server is "$(cek_status)""
