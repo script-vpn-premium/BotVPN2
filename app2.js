@@ -50,7 +50,7 @@ const vars = JSON.parse(fs.readFileSync('./.vars.json', 'utf8'));
 const BOT_TOKEN = vars.BOT_TOKEN;
 const port = vars.PORT || 50123;
 const ADMIN = vars.USER_ID; 
-const NAMA_STORE = vars.NAMA_STORE || 'LITESTORE';
+const NAMA_STORE = vars.NAMA_STORE || '@FTVPNSTORES';
 const DATA_QRIS = vars.DATA_QRIS;
 const MERCHANT_ID = vars.MERCHANT_ID;
 const API_KEY = vars.API_KEY;
@@ -197,7 +197,18 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*Selamat datang di ${NAMA_STORE},\nMENU BOT ADMIN* 🚀\n__Bot VPN serba otomatis untuk membeli\nlayanan VPN dengan mudah dan cepat__\n\n✨ *Channel:* @freenetlite\n✨ *Group:* @litechatgroup\n\n⏳ *Uptime bot:* ${days} Hari\n🌐 *Server tersedia:* ${jumlahServer}\n👥 *Jumlah pengguna:* ${jumlahPengguna}\n\n*Silakan pilih opsi layanan:*`;
+  const messageText = `*Selamat datang di ${NAMA_STORE},
+Powered by FTVPN* 🚀
+Bot VPN serba otomatis untuk membeli
+layanan VPN dengan mudah dan cepat
+Nikmati kemudahan dan kecepatan
+dalam layanan VPN dengan bot kami!
+
+⏳ *Uptime bot:* ${days} Hari
+🌐 *Server tersedia:* ${jumlahServer}
+👥 *Jumlah pengguna:* ${jumlahPengguna}
+
+*Silakan pilih opsi layanan:*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -607,9 +618,9 @@ async function handleServiceAction(ctx, action) {
   let keyboard;
   if (action === 'create') {
     keyboard = [
-      [{ text: '🍁 SSH MANAGER', callback_data: 'create_ssh' }],
-      [{ text: '🎋 VMESS MANAGER', callback_data: 'create_vmess' }, { text: '🍂 VLESS MANAGER', callback_data: 'create_vless' }],
-      [{ text: '🍄 TROJAN MANAGER', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS MANAGER', callback_data: 'create_shadowsocks' }],
+      [{ text: 'Buat Ssh/Ovpn', callback_data: 'create_ssh' }],
+      [{ text: 'Buat Vmess', callback_data: 'create_vmess' }, { text: 'Buat Vless', callback_data: 'create_vless' }],
+      [{ text: 'Buat Trojan', callback_data: 'create_trojan' }, { text: 'Buat Shadowsocks', callback_data: 'create_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
@@ -680,7 +691,7 @@ async function sendAdminMenu(ctx) {
     logger.info('Admin menu sent');
   } catch (error) {
     if (error.response && error.response.error_code === 400) {
-      await ctx.reply('🔐 **MANAGER ADMIN MENU:**', {
+      await ctx.reply('Menu Admin:', {
         reply_markup: {
           inline_keyboard: adminKeyboard
         }
@@ -1297,11 +1308,9 @@ bot.action('deleteserver', async (ctx) => {
 });
 
 
-// Menangani aksi untuk mengecek saldo
 bot.action('cek_saldo', async (ctx) => {
   try {
     const userId = ctx.from.id;
-    
     const row = await new Promise((resolve, reject) => {
       db.get('SELECT saldo FROM users WHERE user_id = ?', [userId], (err, row) => {
         if (err) {
@@ -1313,26 +1322,15 @@ bot.action('cek_saldo', async (ctx) => {
     });
 
     if (row) {
-      await ctx.reply(`📊 *Cek Saldo*\n\n🆔 ID Telegram: ${userId}\n💰 Sisa Saldo: Rp${row.saldo}`, 
-      { 
-        parse_mode: 'Markdown', 
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: '💸 Top Up', callback_data: 'topup_saldo' }, { text: '📝 Menu Utama', callback_data: 'send_main_menu' }]
-          ]
-        } 
-      });
+      await ctx.reply(`💳 *Saldo Anda saat ini adalah:* Rp${row.saldo}\n🆔 *ID Anda:* ${userId}`, { parse_mode: 'Markdown' });
     } else {
       await ctx.reply('⚠️ *Anda belum memiliki saldo. Silakan tambahkan saldo terlebih dahulu.*', { parse_mode: 'Markdown' });
     }
-    
   } catch (error) {
     logger.error('❌ Kesalahan saat memeriksa saldo:', error);
-    await ctx.reply(`❌ *${error.message}*`, { parse_mode: 'Markdown' });
+    await ctx.reply(`❌ *${error}*`, { parse_mode: 'Markdown' });
   }
 });
-
-// Fungsi untuk mengambil username berdasarkan ID
 const getUsernameById = async (userId) => {
   try {
     const telegramUser = await bot.telegram.getChat(userId);
@@ -1342,16 +1340,6 @@ const getUsernameById = async (userId) => {
     throw new Error('⚠️ *PERHATIAN! Terjadi kesalahan saat mengambil username dari Telegram.*');
   }
 };
-
-// Menangani callback untuk kembali ke menu utama
-bot.action('send_main_menu', async (ctx) => {
-  // Tampilkan menu utama disini
-  await ctx.reply('📝 *Selamat datang di Menu Utama.* Silakan pilih salah satu opsi berikut:', {
-    reply_markup: {
-      inline_keyboard: keyboard_full() // Atau buat fungsi menu utama terpisah
-    }
-  });
-});
 
 bot.action('addsaldo_user', async (ctx) => {
   try {
@@ -2095,8 +2083,8 @@ async function handleDepositState(ctx, userId, data) {
     if (currentAmount.length === 0) {
       return await ctx.answerCbQuery('⚠️ Jumlah tidak boleh kosong!', { show_alert: true });
     }
-    if (parseInt(currentAmount) < 10000) {
-      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  10.000 Ya Kak...!!!', { show_alert: true });
+    if (parseInt(currentAmount) < 100) {
+      return await ctx.answerCbQuery('⚠️ Jumlah minimal adalah 100 perak!', { show_alert: true });
     }
     global.depositState[userId].action = 'confirm_amount';
     await processDeposit(ctx, currentAmount);
@@ -2335,29 +2323,25 @@ const qris = new QRISPayment({
 async function processDeposit(ctx, amount) {
   const currentTime = Date.now();
   
-  // Cek apakah permintaan terlalu cepat
   if (currentTime - lastRequestTime < requestInterval) {
-    await ctx.reply('⚠️ *Terlalu banyak permintaan. Silakan tunggu sebentar sebelum mencoba lagi.*', { parse_mode: 'Markdown' });
+    await ctx.editMessageText('⚠️ *Terlalu banyak permintaan. Silakan tunggu sebentar sebelum mencoba lagi.*', { parse_mode: 'Markdown' });
     return;
   }
 
   lastRequestTime = currentTime;
   const userId = ctx.from.id;
-  const uniqueCode = `user-${userId}-${currentTime}`;
+  const uniqueCode = `user-${userId}-${Date.now()}`;
   
   const finalAmount = generateRandomAmount(parseInt(amount));
 
-  // Inisialisasi pendingDeposits jika belum ada
   if (!global.pendingDeposits) {
     global.pendingDeposits = {};
   }
 
   try {
-    // Menghasilkan QR Code
     const { qrBuffer } = await qris.generateQR(finalAmount);
 
-    // Menyusun caption untuk pesan
-    const caption = 
+    const caption =
       `📝 *Detail Pembayaran:*\n\n` +
       `💰 Jumlah: Rp ${finalAmount}\n` +
       `⚠️ *Penting:* Mohon transfer sesuai nominal\n` +
@@ -2367,26 +2351,11 @@ async function processDeposit(ctx, amount) {
       `- Jangan tutup halaman ini\n` +
       `- Jika pembayaran berhasil, saldo akan otomatis ditambahkan`;
 
-    // Menyusun inline keyboard
-    const inlineKeyboard = [
-      [
-        {
-          text: "🗣️ Join Channel Mimin ya",
-          url: "https://t.me/freenetlite"
-        }
-      ]
-    ];
-
-    // Mengirim pesan dengan QR code
     const qrMessage = await ctx.replyWithPhoto({ source: qrBuffer }, {
       caption: caption,
-      parse_mode: 'Markdown',
-      reply_markup: {
-        inline_keyboard: inlineKeyboard
-      }
+      parse_mode: 'Markdown'
     });
 
-    // Menyimpan informasi deposit yang tertunda
     global.pendingDeposits[uniqueCode] = {
       amount: finalAmount,
       originalAmount: amount,
@@ -2395,61 +2364,27 @@ async function processDeposit(ctx, amount) {
       status: 'pending',
       qrMessageId: qrMessage.message_id
     };
-
-    // Menyimpan data ke database
-    await insertPendingDeposit(uniqueCode, userId, finalAmount, amount, qrMessage.message_id);
-
-    // Menghapus state deposit pengguna
+    db.run(
+      `INSERT INTO pending_deposits (unique_code, user_id, amount, original_amount, timestamp, status, qr_message_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [uniqueCode, userId, finalAmount, amount, Date.now(), 'pending', qrMessage.message_id],
+      (err) => {
+        if (err) logger.error('Gagal insert pending_deposits:', err.message);
+      }
+    );
     delete global.depositState[userId];
 
   } catch (error) {
     logger.error('❌ Kesalahan saat memproses deposit:', error);
-    await ctx.reply('❌ *GAGAL! Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi nanti.*', { parse_mode: 'Markdown' });
-    
-    // Menghapus state deposit dan pending deposit
+    await ctx.editMessageText('❌ *GAGAL! Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi nanti.*', { parse_mode: 'Markdown' });
     delete global.depositState[userId];
     delete global.pendingDeposits[uniqueCode];
-    
-    // Menghapus entri dari database jika ada kesalahan
-    await deletePendingDeposit(uniqueCode);
+    db.run('DELETE FROM pending_deposits WHERE unique_code = ?', [uniqueCode], (err) => {
+      if (err) logger.error('Gagal hapus pending_deposits (error):', err.message);
+    });
   }
 }
 
-// Helper function to insert a pending deposit into the database
-function insertPendingDeposit(uniqueCode, userId, finalAmount, originalAmount, qrMessageId) {
-  return new Promise((resolve, reject) => {
-    db.run(
-      `INSERT INTO pending_deposits (unique_code, user_id, amount, original_amount, timestamp, status, qr_message_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [uniqueCode, userId, finalAmount, originalAmount, Date.now(), 'pending', qrMessageId],
-      (err) => {
-        if (err) {
-          logger.error('Gagal insert pending_deposits:', err.message);
-          reject(err);
-        } else {
-          resolve();
-        }
-      }
-    );
-  });
-}
-
-// Helper function to delete a pending deposit from the database
-function deletePendingDeposit(uniqueCode) {
-  return new Promise((resolve, reject) => {
-    db.run('DELETE FROM pending_deposits WHERE unique_code = ?', [uniqueCode], (err) => {
-      if (err) {
-        logger.error('Gagal hapus pending_deposits (error):', err.message);
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
-
-// Fungsi untuk membatalkan top-up (tidak perlu lagi jika tombol diubah menjadi url)
 async function checkQRISStatus() {
   try {
     const pendingDeposits = Object.entries(global.pendingDeposits);
@@ -2588,23 +2523,13 @@ async function getUserBalance(userId) {
 
 async function sendPaymentSuccessNotification(userId, deposit, currentBalance) {
   try {
-    const messageText = 
+    await bot.telegram.sendMessage(userId,
       `✅ *Pembayaran Berhasil!*\n\n` +
       `💰 Nominal: Rp ${deposit.amount}\n` +
       `💳 Saldo ditambahkan: Rp ${deposit.originalAmount}\n` +
-      `🏦 Saldo sekarang: Rp ${currentBalance}`;
-
-    await bot.telegram.sendMessage(userId, messageText, {
-      parse_mode: 'Markdown',
-      reply_markup: {
-        inline_keyboard: [
-          [
-            { text: '💸 Top Up', callback_data: 'topup_saldo' },
-            { text: '📝 Menu Utama', callback_data: 'send_main_menu' }
-          ]
-        ]
-      }
-    });
+      `🏦 Saldo sekarang: Rp ${currentBalance}`,
+      { parse_mode: 'Markdown' }
+    );
     return true;
   } catch (error) {
     logger.error('Error sending payment notification:', error);
