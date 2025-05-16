@@ -17,20 +17,20 @@
 
 ## Installasi Otomatis Service Menggunakan PM2
 ```
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update -y && apt install -y git && apt install -y curl && curl -L -k -sS https://raw.githubusercontent.com/vermiliion/BotVPN2/refs/heads/main/start -o start && bash start sellvpn && [ $? -eq 0 ] && rm -f start
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update -y && apt install -y git && apt install -y curl && curl -L -k -sS https://raw.githubusercontent.com/script-vpn-premium/BotVPN2/refs/heads/main/start -o start && bash start sellvpn && [ $? -eq 0 ] && rm -f start
 ```
 
 
 ## Installasi Otomatis Service Menggunakan Systemctl
 ```
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update -y && apt install -y git && apt install -y curl && curl -L -k -sS https://raw.githubusercontent.com/vermiliion/BotVPN2/refs/heads/main/start2 -o start2 && bash start2 sellvpn && [ $? -eq 0 ] && rm -f start2
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update -y && apt install -y git && apt install -y curl && curl -L -k -sS https://raw.githubusercontent.com/script-vpn-premium/BotVPN2/refs/heads/main/start2 -o start2 && bash start2 sellvpn && [ $? -eq 0 ] && rm -f start2
 ```
 
 ## install Manual
 
 1. Clone repository ini:
    ```bash
-   git clone https://github.com/vermiliion/BotVPN2.git
+   git clone https://github.com/script-vpn-premium/BotVPN2.git
    ```
 2. Masuk ke direktori proyek:
    ```bash
@@ -66,7 +66,7 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.di
 ## Uninstall Bot
 - Paste Perintah ini di vps
 ```
-wget -O hapus.sh https://raw.githubusercontent.com/vermiliion/BotVPN2/main/hapus.sh && chmod +x hapus.sh && ./hapus.sh
+wget -O hapus.sh https://raw.githubusercontent.com/script-vpn-premium/BotVPN2/main/hapus.sh && chmod +x hapus.sh && ./hapus.sh
 ```
 ## Konfigurasi QRIS
 
