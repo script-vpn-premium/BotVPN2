@@ -155,7 +155,7 @@ async function sendMainMenu(ctx) {
   const keyboard = [
     [
       { text: '➕ Buat Akun', callback_data: 'service_create' },
-      { text: '♻️ Perpanjang Akun', callback_data: 'service_renew' }
+      { text: '♻️ Perpanjang', callback_data: 'service_renew' }
     ],
     [
       { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
@@ -197,7 +197,7 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*Selamat datang di ${NAMA_STORE},\nMENU BOT ADMIN* 🚀\n__Bot VPN serba otomatis untuk membeli\nlayanan VPN dengan mudah dan cepat__\n\n✨ *Channel:* @freenetlite\n✨ *Group:* @litechatgroup\n\n⏳ *Uptime bot:* ${days} Hari\n🌐 *Server tersedia:* ${jumlahServer}\n👥 *Jumlah pengguna:* ${jumlahPengguna}\n\n*Silakan pilih opsi layanan:*`;
+  const messageText = `*Selamat datang di ${NAMA_STORE},\nMENU BOT ADMIN* 🚀\n__Bot VPN serba otomatis untuk membeli\nlayanan VPN dengan mudah dan cepat__\n\n✨ *Group:* @jesvpntun\n\n⏳ *Uptime bot:* ${days} Hari\n🌐 *Server tersedia:* ${jumlahServer}\n👥 *Jumlah pengguna:* ${jumlahPengguna}\n\n*Silakan pilih opsi layanan:*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
