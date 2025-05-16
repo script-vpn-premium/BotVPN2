@@ -197,20 +197,26 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `✨ *WELCOME ADMIN - ${NAMA_STORE}* ✨  
-Bot VPN serba otomatis untuk membeli 
-layanan VPN dengan mudah dan cepat. 
-Nikmati kemudahan dan kecepatan 
-layanan VPN bersama bot kami!
-━━━━━━━━━━━━━━━━━━━━━
-📌 *Group Support:* @jesvpntun  
-⏱️ *Bot Uptime:* ${days} Hari  
-🌐 *Server Tersedia:* ${jumlahServer}  
-👥 *Total Pengguna:* ${jumlahPengguna}  
-💵 *Minimal Topup:* Rp1.000  
-━━━━━━━━━━━━━━━━━━━━━
+  const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
 
-✅ *Silakan pilih menu layanan di bawah ini*`;
+Selamat datang, Admin! Kelola layanan 
+VPN otomatis dengan cepat & mudah.
+
+📅 *Uptime Bot:* ${days} Hari  
+🌐 *Server Aktif:* ${jumlahServer}  
+👥 *Total Pengguna:* ${jumlahPengguna}  
+💰 *Minimal Topup:* Rp1.000  
+📢 *Support Group:* @jesvpntun
+
+✅ *Silakan pilih menu layanan:*  
+• Tambah pengguna  
+• Lihat data transaksi  
+• Cek & kelola server  
+• Periksa saldo user  
+• Backup database
+
+Bot stabil, cepat, dan siap melayani.  
+*Powered by ${NAMA_STORE}*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
