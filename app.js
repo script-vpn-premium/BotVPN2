@@ -607,9 +607,9 @@ async function handleServiceAction(ctx, action) {
   let keyboard;
   if (action === 'create') {
     keyboard = [
-      [{ text: '🍁 SSH MANAGER', callback_data: 'create_ssh' }],
-      [{ text: '🎋 VMESS MANAGER', callback_data: 'create_vmess' }, { text: '🍂 VLESS MANAGER', callback_data: 'create_vless' }],
-      [{ text: '🍄 TROJAN MANAGER', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS MANAGER', callback_data: 'create_shadowsocks' }],
+      [{ text: '🍁 AKUN SSH', callback_data: 'create_ssh' }],
+      [{ text: '🎋 AKUN VMESS', callback_data: 'create_vmess' }, { text: '🍂AKUN VLESS', callback_data: 'create_vless' }],
+      [{ text: '🍄 AKUN TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS', callback_data: 'create_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
@@ -680,7 +680,7 @@ async function sendAdminMenu(ctx) {
     logger.info('Admin menu sent');
   } catch (error) {
     if (error.response && error.response.error_code === 400) {
-      await ctx.reply('🔐 **MANAGER ADMIN MENU:**', {
+      await ctx.reply('🔐 *MANAGER ADMIN MENU:*', {
         reply_markup: {
           inline_keyboard: adminKeyboard
         }
@@ -2095,8 +2095,8 @@ async function handleDepositState(ctx, userId, data) {
     if (currentAmount.length === 0) {
       return await ctx.answerCbQuery('⚠️ Jumlah tidak boleh kosong!', { show_alert: true });
     }
-    if (parseInt(currentAmount) < 10000) {
-      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  10.000 Ya Kak...!!!', { show_alert: true });
+    if (parseInt(currentAmount) < 8000) {
+      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  8.000 Ya Kak...!!!', { show_alert: true });
     }
     global.depositState[userId].action = 'confirm_amount';
     await processDeposit(ctx, currentAmount);
@@ -2372,7 +2372,7 @@ async function processDeposit(ctx, amount) {
       [
         {
           text: "🗣️ Join Channel Mimin ya",
-          url: "https://t.me/freenetlite"
+          url: "https://t.me/Testi06"
         }
       ]
     ];
