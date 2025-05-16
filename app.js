@@ -198,8 +198,10 @@ async function sendMainMenu(ctx) {
   }
 
   const messageText = `✨ *WELCOME ADMIN - ${NAMA_STORE}* ✨  
-_Bot VPN otomatis & cepat – solusi instan layanan VPN!_
-
+Bot VPN serba otomatis untuk membeli 
+layanan VPN dengan mudah dan cepat. 
+Nikmati kemudahan dan kecepatan 
+layanan VPN bersama bot kami!
 ━━━━━━━━━━━━━━━━━━━━━
 📌 *Group Support:* @jesvpntun  
 ⏱️ *Bot Uptime:* ${days} Hari  
