@@ -155,7 +155,7 @@ async function sendMainMenu(ctx) {
   const keyboard = [
     [
       { text: '➕ Buat Akun', callback_data: 'service_create' },
-      { text: '♻️ Perpanjang Akun', callback_data: 'service_renew' }
+      { text: '♻️ Perpanjang', callback_data: 'service_renew' }
     ],
     [
       { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
@@ -198,7 +198,7 @@ async function sendMainMenu(ctx) {
   }
 
   const messageText = `*Selamat datang di ${NAMA_STORE},
-Powered by FTVPN* 🚀
+Powered by Riswan Store* 🚀
 Bot VPN serba otomatis untuk membeli
 layanan VPN dengan mudah dan cepat
 Nikmati kemudahan dan kecepatan
