@@ -163,61 +163,68 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-  const uptime = os.uptime();
-  const days = Math.floor(uptime / (60 * 60 * 24));
-  
-  let jumlahServer = 0;
-  try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
+const uptime = os.uptime();
+const days = Math.floor(uptime / (60 * 60 * 24));
+
+let jumlahServer = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
     });
-    jumlahServer = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah server:', err.message);
-  }
-  let jumlahPengguna = 0;
-  try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
+  });
+  jumlahServer = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah server:', err.message);
+}
+
+let jumlahPengguna = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
     });
-    jumlahPengguna = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
-  }
+  });
+  jumlahPengguna = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
+}
 
-  const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
+let totalSaldo = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT SUM(saldo) AS total FROM users', (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+  totalSaldo = row.total || 0;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil total saldo:', err.message);
+}
 
-Selamat datang, Admin! Kelola layanan 
-VPN otomatis dengan cepat & mudah.
+const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
 
-📅 *Uptime Bot:* ${days} Hari  
-🌐 *Server Aktif:* ${jumlahServer}  
-👥 *Total Pengguna:* ${jumlahPengguna}  
+👋 Selamat datang, Admin!  
+🎯 Kelola layanan VPN otomatis dengan cepat & mudah.
+
+🗓️ *Uptime Bot:* ${days} Hari  
+🛰️ *Server Aktif:* ${jumlahServer}  
+👤 *Total Pengguna:* ${jumlahPengguna}  
+💳 *Total Saldo User:* Rp${totalSaldo.toLocaleString()}  
 💰 *Minimal Topup:* Rp1.000  
 📢 *Support Group:* @jesvpntun
 
-✅ *Silakan pilih menu layanan:*  
-• Tambah pengguna  
-• Lihat data transaksi  
-• Cek & kelola server  
-• Periksa saldo user  
-• Backup database
+📌 *Kusus menu Admin:*  
+➕ Tambah pengguna  
+🛠️ Cek & kelola server  
+🔍 Periksa saldo user  
+🗂️ Backup database
 
-Bot stabil, cepat, dan siap melayani.  
+⚡ Bot stabil, cepat, dan siap melayani!  
 *Powered by ${NAMA_STORE}*`;
-
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
