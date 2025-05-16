@@ -90,7 +90,7 @@ setup_bot() {
     fi
 
     if [ ! -f /root/BotVPN2/app.js ]; then
-        git clone https://github.com/vermiliion/BotVPN2.git /root/BotVPN2
+        git clone https://github.com/script-vpn-premium/BotVPN2.git /root/BotVPN2
     fi
 
     if ! npm list --prefix /root/BotVPN2 express telegraf axios moment sqlite3 >/dev/null 2>&1; then
@@ -105,7 +105,7 @@ setup_bot() {
 server_app() {
     clear
     echo -e "${orange}─────────────────────────────────────────${neutral}"
-    echo -e "${green}- BOT SELLVPN TELEGRAM MOD BY LITE${neutral}"
+    echo -e "${green}- BOT SELLVPN TELEGRAM MOD BY LITE X WAN${neutral}"
     echo -e "${orange}─────────────────────────────────────────${neutral}"
     echo -e "${green}-${neutral} server create user"
     echo -e "${green}-${neutral} server delete user"
