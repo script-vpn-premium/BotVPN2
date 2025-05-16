@@ -197,7 +197,18 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*Selamat datang di ${NAMA_STORE},\nminimal isi saldo Rp 1000* 🚀\n__Bot VPN serba otomatis untuk membeli\nlayanan VPN dengan mudah dan cepat__\n\n✨ *Group:* @jesvpntun\n\n⏳ *Uptime bot:* ${days} Hari\n🌐 *Server tersedia:* ${jumlahServer}\n👥 *Jumlah pengguna:* ${jumlahPengguna}\n\n*Silakan pilih opsi layanan:*`;
+  const messageText = `✨ *WELCOME ADMIN - ${NAMA_STORE}* ✨  
+_Bot VPN otomatis & cepat – solusi instan layanan VPN!_
+
+━━━━━━━━━━━━━━━━━━━━━
+📌 *Group Support:* @jesvpntun  
+⏱️ *Bot Uptime:* ${days} Hari  
+🌐 *Server Tersedia:* ${jumlahServer}  
+👥 *Total Pengguna:* ${jumlahPengguna}  
+💵 *Minimal Topup:* Rp1.000  
+━━━━━━━━━━━━━━━━━━━━━
+
+✅ *Silakan pilih menu layanan di bawah ini*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
