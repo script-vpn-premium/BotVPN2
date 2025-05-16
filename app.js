@@ -208,29 +208,26 @@ try {
 const messageText = `
 ✨ *ADMIN PANEL - VPN PREMIUM* ✨
 
-👋 Selamat datang, Admin!
-
 Kelola layanan VPN otomatis dengan
-cepat, mudah, dan efisien.
+pembelian cepat, mudah, dan efisien.
 ──────────────────────
-⏱️  *Uptime Bot*       : ${days} Hari
-🛰️  *Server Aktif*     : ${jumlahServer}
-👥  *Total Pengguna*   : ${jumlahPengguna}
+⏱️  *Uptime Bot* : ${days} Hari
+🛰️  *Server Aktif* : ${jumlahServer}
+👥  *Total Pengguna* : ${jumlahPengguna}
 💳  *Total Saldo User* : Rp${totalSaldo.toLocaleString()}
-💰  *Minimal Topup*    : Rp1.000
-📢  *Support Group*    : @jesvpntun
+💰  *Minimal Topup* : Rp1.000
+📢  *Support Group* : @jesvpntun
 ──────────────────────
 📌 *Menu Admin:*
 
-➕ Tambah Pengguna  
-🛠️ Kelola Server  
-🔎 Periksa Saldo  
+👤 Cek pengguna user
 🗂️ Backup Database
+💰 Mengatur harga 
+🛠️ Kelola Server  
+➕ Tambah Saldo
 ──────────────────────
-⚡ Bot stabil, cepat, 
-⚡ dan siapmelayani Anda!  
-*Powered by ${NAMA_STORE}*
-`;
+⚡User Bot @vpntermurahbot
+⚡ *Powered by ${NAMA_STORE}*`;
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
@@ -2390,15 +2387,13 @@ async function processDeposit(ctx, amount) {
 
     // Menyusun caption untuk pesan
     const caption = 
-      `📝 *Detail Pembayaran:*\n\n` +
-      `💰 Jumlah: Rp ${finalAmount}\n` +
-      `⚠️ *Penting:* Mohon transfer sesuai nominal\n` +
-      `⏱️ Waktu: 5 menit\n\n` +
-      `⚠️ *Catatan:*\n` +
-      `- Pembayaran akan otomatis terverifikasi\n` +
-      `- Jangan tutup halaman ini\n` +
-      `- Jika pembayaran berhasil, saldo akan otomatis ditambahkan`;
-
+  `🧾 *Detail Pembayaran*\n\n` +
+  `💰 Total Jumlah: Rp ${finalAmount}\n` +
+  `⏳ Waktu: 5 menit\n\n` +
+  `⚠️ *Catatan:*\n` +
+  `• Transfer *sesuai nominal*\n` +
+  `• Jangan tutup halaman ini\n` +
+  `• Saldo otomatis masuk setelah bayar`;
     // Menyusun inline keyboard
     const inlineKeyboard = [
       [
