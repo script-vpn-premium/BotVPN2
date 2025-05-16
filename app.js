@@ -205,26 +205,32 @@ try {
   logger.error('Kesalahan saat mengambil total saldo:', err.message);
 }
 
-const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
+const messageText = `
+✨ *ADMIN PANEL - VPN PREMIUM* ✨
 
-👋 Selamat datang, Admin!  
-🎯 Kelola layanan VPN otomatis dengan cepat & mudah.
+👋 Selamat datang, Admin!
 
-🗓️ *Uptime Bot:* ${days} Hari  
-🛰️ *Server Aktif:* ${jumlahServer}  
-👤 *Total Pengguna:* ${jumlahPengguna}  
-💳 *Total Saldo User:* Rp${totalSaldo.toLocaleString()}  
-💰 *Minimal Topup:* Rp1.000  
-📢 *Support Group:* @jesvpntun
+Kelola layanan VPN otomatis dengan
+cepat, mudah, dan efisien.
+──────────────────────
+⏱️  *Uptime Bot*       : ${days} Hari
+🛰️  *Server Aktif*     : ${jumlahServer}
+👥  *Total Pengguna*   : ${jumlahPengguna}
+💳  *Total Saldo User* : Rp${totalSaldo.toLocaleString()}
+💰  *Minimal Topup*    : Rp1.000
+📢  *Support Group*    : @jesvpntun
+──────────────────────
+📌 *Menu Admin:*
 
-📌 *Kusus menu Admin:*  
-➕ Tambah pengguna  
-🛠️ Cek & kelola server  
-🔍 Periksa saldo user  
-🗂️ Backup database
-
-⚡ Bot stabil, cepat, dan siap melayani!  
-*Powered by ${NAMA_STORE}*`;
+➕ Tambah Pengguna  
+🛠️ Kelola Server  
+🔎 Periksa Saldo  
+🗂️ Backup Database
+──────────────────────
+⚡ Bot stabil, cepat, 
+⚡ dan siapmelayani Anda!  
+*Powered by ${NAMA_STORE}*
+`;
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
