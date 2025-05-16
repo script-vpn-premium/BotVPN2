@@ -197,7 +197,20 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*Selamat datang di ${NAMA_STORE},\nMENU BOT ADMIN* 🚀\n__Bot VPN serba otomatis untuk membeli\nlayanan VPN dengan mudah dan cepat__\n\n✨ *Group:* @jesvpntun\n\n⏳ *Uptime bot:* ${days} Hari\n🌐 *Server tersedia:* ${jumlahServer}\n👥 *Jumlah pengguna:* ${jumlahPengguna}\n\n*Silakan pilih opsi layanan:*`;
+  const messageText = `✨ *WELCOME ADMIN - ${NAMA_STORE}* ✨  
+Bot VPN serba otomatis untuk membeli 
+layanan VPN dengan mudah dan cepat. 
+Nikmati kemudahan dan kecepatan 
+layanan VPN bersama bot kami!
+━━━━━━━━━━━━━━━━━━━━━━━  
+📌 *Group Support:* @jesvpntun  
+⏱️ *Bot Uptime:* ${days} Hari  
+🌐 *Server Tersedia:* ${jumlahServer}  
+👥 *Total Pengguna:* ${jumlahPengguna}  
+💵 *Minimal Topup:* Rp1.000  
+━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ *Silakan pilih menu layanan di bawah ini*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -2095,8 +2108,8 @@ async function handleDepositState(ctx, userId, data) {
     if (currentAmount.length === 0) {
       return await ctx.answerCbQuery('⚠️ Jumlah tidak boleh kosong!', { show_alert: true });
     }
-    if (parseInt(currentAmount) < 8000) {
-      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  8.000 Ya Kak...!!!', { show_alert: true });
+    if (parseInt(currentAmount) < 1000) {
+      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  1.000 Ya Kak...!!!', { show_alert: true });
     }
     global.depositState[userId].action = 'confirm_amount';
     await processDeposit(ctx, currentAmount);
