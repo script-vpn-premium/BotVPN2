@@ -155,7 +155,7 @@ async function sendMainMenu(ctx) {
   const keyboard = [
     [
       { text: '➕ Buat Akun', callback_data: 'service_create' },
-      { text: '♻️ Perpanjang', callback_data: 'service_renew' }
+      { text: '♻️ Renew akun', callback_data: 'service_renew' }
     ],
     [
       { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
@@ -197,9 +197,9 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `───────────────────
-    ✨ *ADMIN PANEL * ✨
-───────────────────
+  const messageText = `*───────────────────*
+   ✨ *ADMIN PANEL VPN* ✨
+*───────────────────*
 Selamat datang Di layanan
 VPN dengan mudah dan cepat.
 
@@ -208,7 +208,7 @@ VPN dengan mudah dan cepat.
 • Pengguna Aktif: ${jumlahPengguna}  
 • Minimal Topup: Rp1.000  
 • Support Group: @jesvpntun  
-───────────────────
+*───────────────────*
 🛠️ Menu Admin  
 1️⃣ Kelola Server  
 2️⃣ Manajemen Pengguna  
@@ -217,8 +217,8 @@ VPN dengan mudah dan cepat.
 5️⃣ Kirim Broadcast   
 
 Bot siap 24/7, stabil & cepat.  
-───────────────────
-*Powered by ${NAMA_STORE}*`;
+*───────────────────*
+*Powered by* ${NAMA_STORE}`;
 
   try {
     if (ctx.updateType === 'callback_query') {
