@@ -205,6 +205,22 @@ try {
   logger.error('Kesalahan saat mengambil total saldo:', err.message);
 }
 
+// Ganti dengan userId yang ingin dicek
+const userId = '12345'; 
+
+let saldoUser = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT saldo FROM users WHERE userid = ?', [userId], (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+  saldoUser = row ? row.saldo : 0;
+} catch (err) {
+  logger.error(`Kesalahan saat mengambil saldo user ${userId}:`, err.message);
+}
+
 const messageText = `*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
 *───────────────────────*
@@ -214,7 +230,8 @@ VPN dengan mudah dan cepat.
 📌 Info Sistem  
 • Server Aktif: ${jumlahServer}  
 • Pengguna Aktif: ${jumlahPengguna}  
-• Total Saldo: Rp${totalSaldo}  
+• Total Saldo Admin: Rp${totalSaldo}  
+• Saldo User: Rp${saldoUser}  
 • Minimal Topup: Rp1.000  
 • Support Group: @jesvpntun  
 *───────────────────────*
