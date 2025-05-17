@@ -163,64 +163,60 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-const os = require('os');
-
-// Ambil uptime dan konversi ke hari (bisa dipakai jika mau tampilkan nanti)
+ // Hitung uptime dalam hari
 const uptime = os.uptime();
 const days = Math.floor(uptime / (60 * 60 * 24));
 
-// Inisialisasi variabel
+// Ambil jumlah server
 let jumlahServer = 0;
-let jumlahPengguna = 0;
-let saldo = 0;  // saldo pengguna, harus diambil dari DB juga
-
 try {
-  // Query jumlah server
-  const rowServer = await new Promise((resolve, reject) => {
+  const row = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
     });
   });
-  jumlahServer = rowServer.count;
+  jumlahServer = row.count;
 } catch (err) {
   logger.error('Kesalahan saat mengambil jumlah server:', err.message);
 }
 
+// Ambil jumlah pengguna
+let jumlahPengguna = 0;
 try {
-  // Query jumlah pengguna
-  const rowUser = await new Promise((resolve, reject) => {
+  const row = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
     });
   });
-  jumlahPengguna = rowUser.count;
+  jumlahPengguna = row.count;
 } catch (err) {
   logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
 }
 
+// Ambil saldo user
+let saldoUser = { saldo: 0 };
 try {
-  // Contoh query saldo pengguna, ganti sesuai struktur DB dan user ID
-  const userId = 123; // misal user ID sudah diketahui
-  const rowSaldo = await new Promise((resolve, reject) => {
-    db.get('SELECT saldo FROM users WHERE id = ?', [userId], (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
-  saldo = rowSaldo ? rowSaldo.saldo : 0;
+  saldoUser = await getSaldoUser(user_id); // pastikan user_id sudah didefinisikan
 } catch (err) {
-  logger.error('Kesalahan saat mengambil saldo pengguna:', err.message);
+  logger.error('Kesalahan saat mengambil saldo:', err.message);
 }
 
-// Nama store, misalnya sudah di-set di variabel global
-const NAMA_STORE = 'JesVPN Store';
+// Nama toko
+const NAMA_STORE = "VPN Store Anda"; // ganti sesuai nama toko
 
+// Format pesan
 const messageText = `*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
 *───────────────────────*
-Selamat datang Di layanan
+Selamat datang di layanan
 VPN dengan mudah dan cepat.
 
 📌 Info Sistem  
@@ -228,7 +224,6 @@ VPN dengan mudah dan cepat.
 • Pengguna Aktif: ${jumlahPengguna}  
 • Minimal Topup: Rp1.000  
 • Support Group: @jesvpntun  
-💰 *Saldo Kamu:* Rp${saldo.toLocaleString()}
 *───────────────────────*
 🛠️ Menu Admin  
 1️⃣ Kelola Server  
@@ -237,9 +232,12 @@ VPN dengan mudah dan cepat.
 4️⃣ Atur Paket VPN  
 5️⃣ Kirim Broadcast   
 
+💰 *Sisa Saldo Anda:* Rp${saldoUser.saldo}
+
 Bot siap 24/7, stabil & cepat.  
 *───────────────────────*
 *Powered by* ${NAMA_STORE}`;
+
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
