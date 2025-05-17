@@ -169,7 +169,7 @@ async function sendMainMenu(ctx) {
   const keyboard = [
     [
       { text: '➕ Buat Akun', callback_data: 'service_create' },
-      { text: '♻️ Perpanjang Akun', callback_data: 'service_renew' }
+      { text: '♻️ Perpanjang', callback_data: 'service_renew' }
     ],
     [
       { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
@@ -281,20 +281,28 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-_Powered by Riswan Store_
+  const messageText = `*───────────────────────*
+       ✨ *ADMIN PANEL VPN* ✨
+*───────────────────────*
+Selamat datang Di layanan
+VPN dengan mudah dan cepat.
 
-╭─ *Bot VPN Otomatis*
-├ Bot VPN serba otomatis untuk membeli
-├ layanan VPN dengan mudah dan cepat
-└ Nikmati kemudahan dan kecepatan dalam 
-└ layanan VPN dengan bot kami\\!
+📌 Info Sistem  
+• Server Aktif: ${jumlahServer}  
+• Pengguna Aktif: ${jumlahPengguna}  
+• Minimal Topup: Rp5.000  
+• Support Group: @jesvpntun  
+*───────────────────────*
+🛠️ Menu Admin  
+1️⃣ Kelola Server  
+2️⃣ Manajemen Pengguna  
+3️⃣ Cek Saldo & Topup  
+4️⃣ Atur Paket VPN  
+5️⃣ Kirim Broadcast   
 
-╭─ *Informasi Bot*
-├ 🌐 Server: ${jumlahServer}
-└ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
-
-*Silakan pilih opsi layanan:*`;
+Bot siap 24/7, stabil & cepat.  
+*───────────────────────*
+*Powered by* ${NAMA_STORE}`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -2178,8 +2186,8 @@ async function handleDepositState(ctx, userId, data) {
     if (currentAmount.length === 0) {
       return await ctx.answerCbQuery('⚠️ Jumlah tidak boleh kosong!', { show_alert: true });
     }
-    if (parseInt(currentAmount) < 10000) {
-      return await ctx.answerCbQuery('⚠️ Jumlah minimal adalah 10.000 !', { show_alert: true });
+    if (parseInt(currentAmount) < 5000) {
+      return await ctx.answerCbQuery('⚠️ Jumlah minimal adalah 5.000 !', { show_alert: true });
     }
     global.depositState[userId].action = 'confirm_amount';
     await processDeposit(ctx, currentAmount);
