@@ -287,10 +287,10 @@ _Powered by Riswan Store_
 ╭─ *Bot VPN Otomatis*
 ├ Bot VPN serba otomatis untuk membeli
 ├ layanan VPN dengan mudah dan cepat
-└ Nikmati kemudahan dan kecepatan dalam layanan VPN dengan bot kami\\!
+└ Nikmati kemudahan dan kecepatan dalam 
+└ layanan VPN dengan bot kami\\!
 
 ╭─ *Informasi Bot*
-├ ⏳ Uptime: ${days} Hari
 ├ 🌐 Server: ${jumlahServer}
 └ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
 
