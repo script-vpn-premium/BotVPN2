@@ -281,7 +281,8 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*───────────────────────*
+  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
 *───────────────────────*
 Selamat datang Di layanan
@@ -303,7 +304,7 @@ VPN dengan mudah dan cepat.
 
 Bot siap 24/7, stabil & cepat.  
 *───────────────────────*
-*Powered by* ${NAMA_STORE}`;
+_Powered by Riswan Store_`;
 
   try {
     if (ctx.updateType === 'callback_query') {
