@@ -197,17 +197,27 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
+  const messageText = `───────────────────
+✨ *ADMIN PANEL - VPN PREMIUM* ✨
+───────────────────
+Selamat datang Di layanan
+VPN dengan mudah dan cepat.
 
-Selamat datang, Admin! Kelola layanan 
-VPN otomatis dengan cepat & mudah.
+📌 Info Sistem  
+• Server Aktif: ${jumlahServer}  
+• Pengguna Aktif: ${jumlahPengguna}  
+• Minimal Topup: Rp1.000  
+• Support Group: @jesvpntun  
+───────────────────
+🛠️ Menu Admin  
+1️⃣ Kelola Server  
+2️⃣ Manajemen Pengguna  
+3️⃣ Cek Saldo & Topup  
+4️⃣ Atur Paket VPN  
+5️⃣ Kirim Broadcast   
 
-🌐 *Server Aktif:* ${jumlahServer}  
-👥 *Total Pengguna:* ${jumlahPengguna}  
-💰 *Minimal Topup:* Rp1.000  
-📢 *Support Group:* @jesvpntun
-
-Bot stabil, cepat, dan siap melayani.  
+Bot siap 24/7, stabil & cepat.  
+───────────────────
 *Powered by ${NAMA_STORE}*`;
 
   try {
