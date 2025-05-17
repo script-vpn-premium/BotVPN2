@@ -197,18 +197,18 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `
-*━━━━━━━━━━━━━━━━━━━━━━*
-  ≡         *ORDER OTOMATIS*        ≡
-*━━━━━━━━━━━━━━━━━━━━━━*
-*Informasi*
+  const messageText = `✨ *ADMIN PANEL - VPN PREMIUM* ✨
+
+Selamat datang, Admin! Kelola layanan 
+VPN otomatis dengan cepat & mudah.
+
 🌐 *Server Aktif:* ${jumlahServer}  
-👥 *Total Pengguna:* ${jumlahPengguna
+👥 *Total Pengguna:* ${jumlahPengguna}  
 💰 *Minimal Topup:* Rp1.000  
 📢 *Support Group:* @jesvpntun
-*━━━━━━━━━━━━━━━━━━━━━━*
-*Powered by* ${NAMA_STORE}
-*━━━━━━━━━━━━━━━━━━━━━━*`;
+
+Bot stabil, cepat, dan siap melayani.  
+*Powered by ${NAMA_STORE}*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
