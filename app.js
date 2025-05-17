@@ -163,43 +163,59 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-const saldo = await getSaldoUser(user_id);
+const os = require('os');
+
+// Ambil uptime dan konversi ke hari (bisa dipakai jika mau tampilkan nanti)
 const uptime = os.uptime();
 const days = Math.floor(uptime / (60 * 60 * 24));
 
+// Inisialisasi variabel
 let jumlahServer = 0;
+let jumlahPengguna = 0;
+let saldo = 0;  // saldo pengguna, harus diambil dari DB juga
+
 try {
-  const row = await new Promise((resolve, reject) => {
+  // Query jumlah server
+  const rowServer = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
+      if (err) reject(err);
+      else resolve(row);
     });
   });
-  jumlahServer = row.count;
+  jumlahServer = rowServer.count;
 } catch (err) {
   logger.error('Kesalahan saat mengambil jumlah server:', err.message);
 }
 
-let jumlahPengguna = 0;
 try {
-  const row = await new Promise((resolve, reject) => {
+  // Query jumlah pengguna
+  const rowUser = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
+      if (err) reject(err);
+      else resolve(row);
     });
   });
-  jumlahPengguna = row.count;
+  jumlahPengguna = rowUser.count;
 } catch (err) {
   logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
 }
 
-// Misalnya saldo sudah diambil sebelumnya dan disimpan di variabel `saldo`
+try {
+  // Contoh query saldo pengguna, ganti sesuai struktur DB dan user ID
+  const userId = 123; // misal user ID sudah diketahui
+  const rowSaldo = await new Promise((resolve, reject) => {
+    db.get('SELECT saldo FROM users WHERE id = ?', [userId], (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+  saldo = rowSaldo ? rowSaldo.saldo : 0;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil saldo pengguna:', err.message);
+}
+
+// Nama store, misalnya sudah di-set di variabel global
+const NAMA_STORE = 'JesVPN Store';
 
 const messageText = `*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
