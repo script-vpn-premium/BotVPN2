@@ -163,44 +163,67 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-  // Hitung uptime bot
-const getUptime = () => {
-  const uptime = os.uptime();
-  const days = Math.floor(uptime / (60 * 60 * 24));
-  const hours = Math.floor((uptime % (60 * 60 * 24)) / 3600);
-  const minutes = Math.floor((uptime % 3600) / 60);
-  return `${days} hari ${hours} jam ${minutes} menit`;
-};
+const saldo = await getSaldoUser(user_id);
+const uptime = os.uptime();
+const days = Math.floor(uptime / (60 * 60 * 24));
 
-// Saat user kirim /menu
-bot.onText(/\/menu/, async (msg) => {
-  const chatId = msg.chat.id;
-  const telegramId = msg.from.id;
+let jumlahServer = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+  jumlahServer = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah server:', err.message);
+}
 
-  // Cek atau tambahkan pengguna baru
-  db.run(`INSERT OR IGNORE INTO Users (telegram_id, saldo) VALUES (?, ?)`, [telegramId, 0]);
+let jumlahPengguna = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+  jumlahPengguna = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
+}
 
-  // Ambil jumlah pengguna & saldo
-  db.get(`SELECT COUNT(*) AS total FROM Users`, (err, countRow) => {
-    db.get(`SELECT saldo FROM Users WHERE telegram_id = ?`, [telegramId], (err, userRow) => {
-      const uptime = getUptime();
-      const jumlahServer = 2; // Bisa ambil dari API / database lain
-      const jumlahPengguna = countRow.total;
-      const saldo = userRow ? userRow.saldo : 0;
+// Misalnya saldo sudah diambil sebelumnya dan disimpan di variabel `saldo`
 
-      const message = `
-Selamat datang di *Bot Auto Order*  
-Bot VPN serba otomatis untuk membeli layanan VPN dengan mudah dan cepat.  
-Nikmati kemudahan dan kecepatan dalam layanan VPN dengan bot kami!
+const messageText = `*───────────────────────*
+       ✨ *ADMIN PANEL VPN* ✨
+*───────────────────────*
+Selamat datang Di layanan
+VPN dengan mudah dan cepat.
 
-⏳ *Uptime Bot:* ${uptime}  
-🌐 *Server Tersedia:* ${jumlahServer}  
-👥 *Jumlah Pengguna:* ${jumlahPengguna}  
-💰 *Saldo Kamu:* Rp${saldo.toLocaleString()}  
+📌 Info Sistem  
+• Server Aktif: ${jumlahServer}  
+• Pengguna Aktif: ${jumlahPengguna}  
+• Minimal Topup: Rp1.000  
+• Support Group: @jesvpntun  
+💰 *Saldo Kamu:* Rp${saldo.toLocaleString()}
+*───────────────────────*
+🛠️ Menu Admin  
+1️⃣ Kelola Server  
+2️⃣ Manajemen Pengguna  
+3️⃣ Cek Saldo & Topup  
+4️⃣ Atur Paket VPN  
+5️⃣ Kirim Broadcast   
 
-Silahkan Pilih Opsi Layanan:
+Bot siap 24/7, stabil & cepat.  
+*───────────────────────*
 *Powered by* ${NAMA_STORE}`;
-
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
