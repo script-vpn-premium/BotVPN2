@@ -198,7 +198,7 @@ async function sendMainMenu(ctx) {
   }
 
   const messageText = `───────────────────
-✨ *ADMIN PANEL - VPN PREMIUM* ✨
+    ✨ *ADMIN PANEL * ✨
 ───────────────────
 Selamat datang Di layanan
 VPN dengan mudah dan cepat.
