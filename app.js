@@ -282,29 +282,19 @@ async function sendMainMenu(ctx) {
     : '';
 
   const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-*───────────────────────*
-       ✨ *ADMIN PANEL VPN* ✨
-*───────────────────────*
-Selamat datang Di layanan
-VPN dengan mudah dan cepat.
+_Powered by Riswan Store_
 
-📌 Info Sistem  
-• Server Aktif: ${jumlahServer}  
-• Pengguna: ${jumlahPengguna}${topUsersText}
+╭─ *Bot VPN Otomatis*
+├ Bot VPN serba otomatis untuk membeli
+├ layanan VPN dengan mudah dan cepat
+└ Nikmati kemudahan dan kecepatan 
+└ dalam layanan VPN dengan bot kami\\!
 
-• Minimal Topup: Rp1.000  
-• Support Group: @jesvpntun  
-*───────────────────────*
-🛠️ Menu Admin  
-1️⃣ Kelola Server  
-2️⃣ Manajemen Pengguna  
-3️⃣ Cek Saldo & Topup  
-4️⃣ Atur Paket VPN  
-5️⃣ Kirim Broadcast   
+╭─ *Informasi Bot*
+├ 🌐 Server: ${jumlahServer}
+└ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
 
-Bot siap 24/7, stabil & cepat.  
-*───────────────────────*
-_Powered by Riswan Store_`;
+*Silakan pilih opsi layanan:*`;
 
   try {
     if (ctx.updateType === 'callback_query') {
