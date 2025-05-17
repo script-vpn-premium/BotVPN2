@@ -164,64 +164,40 @@ async function sendMainMenu(ctx) {
   ];
 
   const uptime = os.uptime();
-const days = Math.floor(uptime / (60 * 60 * 24));
-
-let jumlahServer = 0;
-try {
-  const row = await new Promise((resolve, reject) => {
-    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+  const days = Math.floor(uptime / (60 * 60 * 24));
+  
+  let jumlahServer = 0;
+  try {
+    const row = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
     });
-  });
-  jumlahServer = row.count;
-} catch (err) {
-  logger.error('Kesalahan saat mengambil jumlah server:', err.message);
-}
-
-let jumlahPengguna = 0;
-try {
-  const row = await new Promise((resolve, reject) => {
-    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+    jumlahServer = row.count;
+  } catch (err) {
+    logger.error('Kesalahan saat mengambil jumlah server:', err.message);
+  }
+  let jumlahPengguna = 0;
+  try {
+    const row = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
     });
-  });
-  jumlahPengguna = row.count;
-} catch (err) {
-  logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
-}
+    jumlahPengguna = row.count;
+  } catch (err) {
+    logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
+  }
 
-let totalSaldo = 0;
-try {
-  const row = await new Promise((resolve, reject) => {
-    db.get('SELECT SUM(saldo) AS total FROM users', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
-  totalSaldo = row.total || 0;
-} catch (err) {
-  logger.error('Kesalahan saat mengambil total saldo:', err.message);
-}
-
-// Ganti dengan userId yang ingin dicek
-const userId = '12345'; 
-
-let saldoUser = 0;
-try {
-  const row = await new Promise((resolve, reject) => {
-    db.get('SELECT saldo FROM users WHERE userid = ?', [userId], (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
-  saldoUser = row ? row.saldo : 0;
-} catch (err) {
-  logger.error(`Kesalahan saat mengambil saldo user ${userId}:`, err.message);
-}
-
-const messageText = `*───────────────────────*
+  const messageText = `*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
 *───────────────────────*
 Selamat datang Di layanan
@@ -230,8 +206,6 @@ VPN dengan mudah dan cepat.
 📌 Info Sistem  
 • Server Aktif: ${jumlahServer}  
 • Pengguna Aktif: ${jumlahPengguna}  
-• Total Saldo Admin: Rp${totalSaldo}  
-• Saldo User: Rp${saldoUser}  
 • Minimal Topup: Rp1.000  
 • Support Group: @jesvpntun  
 *───────────────────────*
