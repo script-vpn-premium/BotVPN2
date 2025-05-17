@@ -163,20 +163,15 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
- // Hitung uptime dalam hari
-const uptime = os.uptime();
+  const uptime = os.uptime();
 const days = Math.floor(uptime / (60 * 60 * 24));
 
-// Ambil jumlah server
 let jumlahServer = 0;
 try {
   const row = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
+      if (err) reject(err);
+      else resolve(row);
     });
   });
   jumlahServer = row.count;
@@ -184,16 +179,12 @@ try {
   logger.error('Kesalahan saat mengambil jumlah server:', err.message);
 }
 
-// Ambil jumlah pengguna
 let jumlahPengguna = 0;
 try {
   const row = await new Promise((resolve, reject) => {
     db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
+      if (err) reject(err);
+      else resolve(row);
     });
   });
   jumlahPengguna = row.count;
@@ -201,27 +192,29 @@ try {
   logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
 }
 
-// Ambil saldo user
-let saldoUser = { saldo: 0 };
+let totalSaldo = 0;
 try {
-  saldoUser = await getSaldoUser(user_id); // pastikan user_id sudah didefinisikan
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT SUM(saldo) AS total FROM users', (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+  totalSaldo = row.total || 0;
 } catch (err) {
-  logger.error('Kesalahan saat mengambil saldo:', err.message);
+  logger.error('Kesalahan saat mengambil total saldo:', err.message);
 }
 
-// Nama toko
-const NAMA_STORE = "VPN Store Anda"; // ganti sesuai nama toko
-
-// Format pesan
 const messageText = `*───────────────────────*
        ✨ *ADMIN PANEL VPN* ✨
 *───────────────────────*
-Selamat datang di layanan
+Selamat datang Di layanan
 VPN dengan mudah dan cepat.
 
 📌 Info Sistem  
 • Server Aktif: ${jumlahServer}  
 • Pengguna Aktif: ${jumlahPengguna}  
+• Total Saldo: Rp${totalSaldo}  
 • Minimal Topup: Rp1.000  
 • Support Group: @jesvpntun  
 *───────────────────────*
@@ -231,8 +224,6 @@ VPN dengan mudah dan cepat.
 3️⃣ Cek Saldo & Topup  
 4️⃣ Atur Paket VPN  
 5️⃣ Kirim Broadcast   
-
-💰 *Sisa Saldo Anda:* Rp${saldoUser.saldo}
 
 Bot siap 24/7, stabil & cepat.  
 *───────────────────────*
