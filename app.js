@@ -163,46 +163,9 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-  const os = require('os');
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database.db');
-const logger = console; // Ganti dengan logger asli jika ada
-
-const uptime = os.uptime();
-const days = Math.floor(uptime / (60 * 60 * 24));
-
-// Inisialisasi tabel Config (sekali saja di awal)
-db.run(`CREATE TABLE IF NOT EXISTS Config (
-  key TEXT PRIMARY KEY,
-  value TEXT
-)`);
-
-// Fungsi simpan jumlah pengguna ke tabel Config
-function simpanJumlahPengguna(jumlah) {
-  db.run(
-    `INSERT INTO Config (key, value) VALUES ('jumlahPengguna', ?) 
-     ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
-    [jumlah.toString()],
-    (err) => {
-      if (err) logger.error('Gagal menyimpan jumlah pengguna:', err.message);
-    }
-  );
-}
-
-// Fungsi ambil jumlah pengguna dari Config (cadangan)
-function ambilJumlahPenggunaTersimpan() {
-  return new Promise((resolve, reject) => {
-    db.get(
-      `SELECT value FROM Config WHERE key = 'jumlahPengguna'`,
-      (err, row) => {
-        if (err) reject(err);
-        else resolve(row ? parseInt(row.value) : 0);
-      }
-    );
-  });
-}
-
-async function tampilkanAdminPanel() {
+  const uptime = os.uptime();
+  const days = Math.floor(uptime / (60 * 60 * 24));
+  
   let jumlahServer = 0;
   try {
     const row = await new Promise((resolve, reject) => {
@@ -218,7 +181,6 @@ async function tampilkanAdminPanel() {
   } catch (err) {
     logger.error('Kesalahan saat mengambil jumlah server:', err.message);
   }
-
   let jumlahPengguna = 0;
   try {
     const row = await new Promise((resolve, reject) => {
@@ -231,14 +193,8 @@ async function tampilkanAdminPanel() {
       });
     });
     jumlahPengguna = row.count;
-
-    // Simpan ke Config
-    simpanJumlahPengguna(jumlahPengguna);
-
   } catch (err) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
-    // Jika gagal, coba ambil dari Config
-    jumlahPengguna = await ambilJumlahPenggunaTersimpan();
   }
 
   const messageText = `*───────────────────────*
@@ -305,7 +261,7 @@ bot.command('helpadmin', async (ctx) => {
       return ctx.reply('⚠️ Anda tidak memiliki izin untuk menggunakan perintah ini.', { parse_mode: 'Markdown' });
   }
   const helpMessage = `
-*?? Daftar Perintah Admin:*
+*📋 Daftar Perintah Admin:*
 
 1. /addserver - Menambahkan server baru.
 2. /addsaldo - Menambahkan saldo ke akun pengguna.
