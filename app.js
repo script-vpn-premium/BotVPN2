@@ -153,23 +153,15 @@ bot.command('admin', async (ctx) => {
 });
 async function sendMainMenu(ctx) {
   const keyboard = [
-  [
-    { text: '♻️ Renew akun', callback_data: 'service_renew' },
-    { text: '🍁 SSH', callback_data: 'create_ssh' }
-  ],
-  [
-    { text: '🎋 VMESS', callback_data: 'create_vmess' },
-    { text: '🍂 VLESS', callback_data: 'create_vless' }
-  ],
-  [
-    { text: '🍄 TROJAN', callback_data: 'create_trojan' },
-    { text: '🪴 SSWD', callback_data: 'create_shadowsocks' }
-  ],
-  [
-    { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
-    { text: '💳 Cek Saldo', callback_data: 'cek_saldo' }
-  ]
-];
+    [
+      { text: '➕ Buat Akun', callback_data: 'service_create' },
+      { text: '♻️ Renew akun', callback_data: 'service_renew' }
+    ],
+    [
+      { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
+      { text: '💳 Cek Saldo', callback_data: 'cek_saldo' }
+    ],
+  ];
 
   const uptime = os.uptime();
   const days = Math.floor(uptime / (60 * 60 * 24));
@@ -205,9 +197,7 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `
-
-const messageText = `*Selamat Datang di VPN PREMIUM!*
+  const messageText = `*Selamat Datang di VPN PREMIUM!*
 
 Bot otomatis yang memudahkan Anda 
 membeli layanan VPN dengan cepat, aman, 
@@ -631,9 +621,9 @@ async function handleServiceAction(ctx, action) {
   let keyboard;
   if (action === 'create') {
     keyboard = [
-      [{ text: '🍁 SSH', callback_data: 'create_ssh' }],
-      [{ text: '🎋 VMESS', callback_data: 'create_vmess' }, { text: '🍂 VLESS', callback_data: 'create_vless' }],
-      [{ text: '🍄 TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SSWD', callback_data: 'create_shadowsocks' }],
+      [{ text: '🍁 AKUN SSH', callback_data: 'create_ssh' }],
+      [{ text: '🎋 AKUN VMESS', callback_data: 'create_vmess' }, { text: '🍂AKUN VLESS', callback_data: 'create_vless' }],
+      [{ text: '🍄 AKUN TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS', callback_data: 'create_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
