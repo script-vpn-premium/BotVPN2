@@ -230,7 +230,7 @@ const messageText = `*Selamat Datang di VPN PREMIUM!*
 *📌 Info Sistem*
 *• Server Aktif:* ${jumlahServer}  
 *• Pengguna Aktif:* ${jumlahPengguna}  
-*• Saldo Anda:* Rp${saldo}
+*• Saldo Anda:* Rp${row.saldo}
 *• Minimal Topup:* Rp1.000  
 *• Support Group:* @jesvpntun  
 
