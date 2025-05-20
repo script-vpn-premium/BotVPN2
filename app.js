@@ -202,6 +202,7 @@ try {
 }
 
 // Ambil saldo pengguna
+const userId = msg.from.id; // Pastikan userId valid
 let saldo = 0;
 try {
   const row = await new Promise((resolve, reject) => {
@@ -213,7 +214,15 @@ try {
       }
     });
   });
-  saldo = row?.saldo || 0;
+
+  // Cek hasil saldo
+  console.log('Hasil saldo user:', row);
+
+  if (row && row.saldo !== null && typeof row.saldo !== 'undefined') {
+    saldo = row.saldo;
+  } else {
+    console.warn(`User dengan ID ${userId} tidak ditemukan atau saldo kosong.`);
+  }
 } catch (err) {
   logger.error('Kesalahan saat mengambil saldo pengguna:', err.message);
 }
@@ -230,13 +239,12 @@ const messageText = `*Selamat Datang di VPN PREMIUM!*
 *📌 Info Sistem*
 *• Server Aktif:* ${jumlahServer}  
 *• Pengguna Aktif:* ${jumlahPengguna}  
-*• Saldo Anda:* Rp${row.saldo}
+*• Saldo Anda:* Rp${saldo}
 *• Minimal Topup:* Rp1.000  
 *• Support Group:* @jesvpntun  
 
 *Silakan pilih layanan yang Anda butuhkan:*
 *Powered by* ${NAMA_STORE}`;
-
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
