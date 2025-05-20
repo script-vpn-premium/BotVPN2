@@ -199,16 +199,17 @@ async function sendMainMenu(ctx) {
 
   const messageText = `*Selamat Datang di VPN PREMIUM!*
 
-Bot otomatis yang memudahkan Anda 
-membeli layanan VPN dengan cepat, aman, 
-dan praktis. Nikmati koneksi internet yang 
-stabil, cepat, dan bebas blokir—cukup dalam 
-beberapa langkah mudah lewat bot kami.
+*Bot otomatis yang memudahkan Anda*
+*membeli layanan VPN dengan cepat, aman,*
+*dan praktis. Nikmati koneksi internet yang*
+*stabil, cepat, dan bebas blokir—cukup dalam*
+*beberapa langkah mudah lewat bot kami.*
 
-📌 Info Sistem  
-• Server Aktif: ${jumlahServer}  
-• Minimal Topup: Rp1.000  
-• Support Group: @jesvpntun  
+*📌 Info Sistem*
+*• Server Aktif:* ${jumlahServer}  
+*• Pengguna Aktif:* ${jumlahPengguna}  
+*• Minimal Topup:* Rp1.000  
+*• Support Group:* @jesvpntun  
 
 *Silakan pilih layanan yang Anda butuhkan:*
 *Powered by* ${NAMA_STORE}`;
