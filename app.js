@@ -163,41 +163,63 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-  const uptime = os.uptime();
-  const days = Math.floor(uptime / (60 * 60 * 24));
-  
-  let jumlahServer = 0;
-  try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
-    jumlahServer = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah server:', err.message);
-  }
-  let jumlahPengguna = 0;
-  try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
-    jumlahPengguna = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
-  }
+// Ambil uptime
+const uptime = os.uptime();
+const days = Math.floor(uptime / (60 * 60 * 24));
 
-  const messageText = `*Selamat Datang di VPN PREMIUM!*
+// Variabel jumlah server
+let jumlahServer = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+  jumlahServer = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah server:', err.message);
+}
+
+// Variabel jumlah pengguna
+let jumlahPengguna = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+  jumlahPengguna = row.count;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
+}
+
+// Ambil saldo pengguna
+let saldo = 0;
+try {
+  const row = await new Promise((resolve, reject) => {
+    db.get('SELECT saldo FROM users WHERE id = ?', [userId], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+  saldo = row?.saldo || 0;
+} catch (err) {
+  logger.error('Kesalahan saat mengambil saldo pengguna:', err.message);
+}
+
+// Tampilkan pesan
+const messageText = `*Selamat Datang di VPN PREMIUM!*
 
 *Bot otomatis yang memudahkan Anda*
 *membeli layanan VPN dengan cepat, aman,*
@@ -208,6 +230,7 @@ async function sendMainMenu(ctx) {
 *📌 Info Sistem*
 *• Server Aktif:* ${jumlahServer}  
 *• Pengguna Aktif:* ${jumlahPengguna}  
+*• Saldo Anda:* Rp${saldo}
 *• Minimal Topup:* Rp1.000  
 *• Support Group:* @jesvpntun  
 
