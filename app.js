@@ -207,7 +207,8 @@ async function sendMainMenu(ctx) {
 
 *📌 Info Sistem*
 *• Server Aktif:* ${jumlahServer}  
-*• Pengguna Aktif:* ${jumlahPengguna}  
+*• Sisa Saldo:* Rp${row.saldo}
+*• Pengguna:* ${jumlahPengguna}  
 *• Minimal Topup:* Rp1.000  
 *• Support Group:* @jesvpntun  
 
