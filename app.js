@@ -267,7 +267,7 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `Selamat datang di *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
 _Powered by Riswan Store_
 
 *Bot otomatis yang memudahkan Anda*
