@@ -267,7 +267,7 @@ async function sendMainMenu(ctx) {
       }).join('\n')
     : '';
 
-  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
+  const messageText = `Selamat datang di *${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
 _Powered by Riswan Store_
 
 *Bot otomatis yang memudahkan Anda*
@@ -279,9 +279,9 @@ _Powered by Riswan Store_
 ╭─ *Informasi Bot*
 ├ ⏳ Uptime: ${days} Hari
 ├ 🌐 Server: ${jumlahServer}
-└ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
-
-*Silakan pilih opsi layanan:*`;
+├ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
+├ 🛡️ Admin: @JesVpnt
+└ 💬 Grup Diskusi: @jesvpntun`;
 
   try {
     if (ctx.updateType === 'callback_query') {
