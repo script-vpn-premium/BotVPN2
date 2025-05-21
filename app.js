@@ -163,69 +163,55 @@ async function sendMainMenu(ctx) {
     ],
   ];
 
-const uptime = os.uptime();
-const days = Math.floor(uptime / (60 * 60 * 24));
-
-let jumlahServer = 0;
-let jumlahPengguna = 0;
-let saldoPengguna = 0;
-const userId = ctx.from.id; // Ambil dari context
-
-try {
-  const serverRow = await new Promise((resolve, reject) => {
-    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+  const uptime = os.uptime();
+  const days = Math.floor(uptime / (60 * 60 * 24));
+  
+  let jumlahServer = 0;
+  try {
+    const row = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
     });
-  });
-  jumlahServer = serverRow.count;
-
-  const userRow = await new Promise((resolve, reject) => {
-    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
+    jumlahServer = row.count;
+  } catch (err) {
+    logger.error('Kesalahan saat mengambil jumlah server:', err.message);
+  }
+  let jumlahPengguna = 0;
+  try {
+    const row = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
     });
-  });
-  jumlahPengguna = userRow.count;
+    jumlahPengguna = row.count;
+  } catch (err) {
+    logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
+  }
 
-  const saldoRow = await new Promise((resolve, reject) => {
-    db.get('SELECT saldo FROM users WHERE id = ?', [userId], (err, row) => {
-      if (err) reject(err);
-      else resolve(row || { saldo: 0 });
-    });
-  });
-  saldoPengguna = saldoRow.saldo;
+  const messageText = `*Selamat Datang di VPN PREMIUM!*
 
-} catch (err) {
-  logger.error('Database error:', err.message);
-}
+*Bot otomatis yang memudahkan Anda*
+*membeli layanan VPN dengan cepat, aman,*
+*dan praktis. Nikmati koneksi internet yang*
+*stabil, cepat, dan bebas blokir—cukup dalam*
+*beberapa langkah mudah lewat bot kami.*
 
-const messageText = `🛡️ *VIP - VPN PREMIUM SERVICE* 🛡️
-━━━━━━━━━━━━━━━━━━━━━━━
-📊 *Status Bot*
-🟢 Aktif Selama : ${days} hari
-🖥️ Server Tersedia : ${jumlahServer}
-👤 Pengguna Terdaftar : ${jumlahPengguna}
-💰 Saldo Kamu : Rp${saldoPengguna}
-🆔 User ID : ${userId}
+*📌 Info Sistem*
+*• Server Aktif:* ${jumlahServer}  
+*• Pengguna Aktif:* ${jumlahPengguna}  
+*• Minimal Topup:* Rp1.000  
+*• Support Group:* @jesvpntun  
 
-🔥 *LAYANAN KAMI:*
-• SSH & OpenVPN (Support Semua Operator)
-• XRAY: VMess / VLESS (TLS & Non-TLS)
-• Trojan WS & GFW (Stabil & Cepat)
-━━━━━━━━━━━━━━━━━━━━━━━
-📌 *FITUR UNGGULAN:*
-✅ Full Speed & Low Ping  
-✅ Support Bug Host / SNI  
-✅ Masa Aktif Fleksibel  
-✅ Kuota & Limit IP Custom  
-✅ Auto Deploy Akun 24 Jam  
-✅ Support Wildcard  
-
-💬 Silakan pilih menu di bawah untuk order.  
-📺 Layanan cocok untuk *Streaming & Browsing*!  
-☎️ Butuh bantuan? Hubungi @JesVpnt
-━━━━━━━━━━━━━━━━━━━━━━━
+*Silakan pilih layanan yang Anda butuhkan:*
 *Powered by* ${NAMA_STORE}`;
 
   try {
