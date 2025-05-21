@@ -181,7 +181,6 @@ async function sendMainMenu(ctx) {
   } catch (err) {
     logger.error('Kesalahan saat mengambil jumlah server:', err.message);
   }
-
   let jumlahPengguna = 0;
   try {
     const row = await new Promise((resolve, reject) => {
@@ -198,77 +197,7 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  // Get top 3 users by account purchase count
-  let topUsers = [];
-  try {
-    // First, let's check if we have any transactions at all
-    const totalTransactions = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) as count FROM transactions', [], (err, row) => {
-        if (err) {
-          logger.error('Error counting total transactions:', err);
-          reject(err);
-        } else {
-          logger.info(`Total transactions in database: ${row.count}`);
-          resolve(row.count);
-        }
-      });
-    });
-
-    if (totalTransactions === 0) {
-      logger.info('No transactions found in database');
-      topUsers = [];
-    } else {
-      topUsers = await new Promise((resolve, reject) => {
-        db.all(`
-          SELECT u.user_id, COUNT(t.id) as transaction_count 
-          FROM users u 
-          LEFT JOIN transactions t ON u.user_id = t.user_id 
-          WHERE t.type IN ('ssh', 'vmess', 'vless', 'trojan', 'shadowsocks')
-          GROUP BY u.user_id 
-          ORDER BY transaction_count DESC 
-          LIMIT 3
-        `, [], async (err, rows) => {
-          if (err) {
-            logger.error('Error fetching top users:', err);
-            reject(err);
-          } else {
-            logger.info(`Found ${rows.length} top users`);
-            const usersWithNames = await Promise.all(rows.map(async (row) => {
-              try {
-                const user = await bot.telegram.getChat(row.user_id);
-                logger.info(`User ${row.user_id} has ${row.transaction_count} transactions`);
-                return {
-                  ...row,
-                  username: user.username || user.first_name
-                };
-              } catch (error) {
-                logger.error('Error getting user info:', error);
-                return {
-                  ...row,
-                  username: 'Unknown User'
-                };
-              }
-            }));
-            resolve(usersWithNames);
-          }
-        });
-      });
-    }
-  } catch (err) {
-    logger.error('Error in top users query:', err);
-  }
-
-  const topUsersText = topUsers.length > 0 
-    ? '\n\n🏆 *Top 3 Pengguna Aktif:*\n' + 
-      topUsers.map((user, index) => {
-        const username = user.username || 'Unknown User';
-        const escapedUsername = username.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
-        return `${index + 1}\\. ${escapedUsername} \\(${user.transaction_count} transaksi\\)`;
-      }).join('\n')
-    : '';
-
-  const messageText = `*${NAMA_STORE.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&')}* 🚀
-_Powered by Riswan Store_
+  const messageText = `*Selamat Datang di VPN PREMIUM!*
 
 *Bot otomatis yang memudahkan Anda*
 *membeli layanan VPN dengan cepat, aman,*
@@ -276,12 +205,14 @@ _Powered by Riswan Store_
 *stabil, cepat, dan bebas blokir—cukup dalam*
 *beberapa langkah mudah lewat bot kami.*
 
-╭─ *Informasi Bot*
-├ ⏳ Uptime: ${days} Hari
-├ 🌐 Total  Server: ${jumlahServer}
-├ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
-├ 👤 Admin: @JesVpnt
-└ 💬 Grup Diskusi: @jesvpntun`;
+*📌 Info Sistem*
+*• Server Aktif:* ${jumlahServer}  
+*• Pengguna Aktif:* ${jumlahPengguna}  
+*• Minimal Topup:* Rp1.000  
+*• Support Group:* @jesvpntun  
+
+*Silakan pilih layanan yang Anda butuhkan:*
+*Powered by* ${NAMA_STORE}`;
 
   try {
     if (ctx.updateType === 'callback_query') {
