@@ -278,9 +278,9 @@ _Powered by Riswan Store_
 
 ╭─ *Informasi Bot*
 ├ ⏳ Uptime: ${days} Hari
-├ 🌐 Server: ${jumlahServer}
+├ 🌐 Total  Server: ${jumlahServer}
 ├ 👥 Pengguna: ${jumlahPengguna}${topUsersText}
-├ 🛡️ Admin: @JesVpnt
+├ 👤 Admin: @JesVpnt
 └ 💬 Grup Diskusi: @jesvpntun`;
 
   try {
