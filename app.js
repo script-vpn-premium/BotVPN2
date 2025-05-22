@@ -198,7 +198,7 @@ async function sendMainMenu(ctx) {
   }
 
   const messageText = `*क══════════क⊹⊱✫⊰⊹क══════════क*
-       *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
+          *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
 *क══════════क⊹⊱✫⊰⊹क══════════क*
 *📊 Status Bot*
 *🌐 Server Tersedia :* ${jumlahServer}  
