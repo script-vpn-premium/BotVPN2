@@ -198,16 +198,16 @@ async function sendMainMenu(ctx) {
   }
 
   const messageText = `*🛡️ AUTO ORDER VPN PREMIUM🛡️*
-*═══════════════════════*
+*════════════════════════════*
 *📊 Status Bot*
 *🌐 Server Tersedia :* ${jumlahServer}  
 *👥 Pengguna Aktip :* ${jumlahPengguna}  
-*═══════════════════════*
+*════════════════════════════*
 *🔥 LAYANAN KAMI:*
 *• SSH & OpenVPN (Support Semua Operator)*
 *• XRAY: VMess / VLESS (TLS & Non-TLS)*
 *• Trojan WS & GFW (Stabil & Cepat)*
-*═══════════════════════*
+*════════════════════════════*
 *📌 FITUR UNGGULAN:*
 *✅ Full Speed & Low Ping*
 *✅ Support Bug Host / SNI*
@@ -215,7 +215,7 @@ async function sendMainMenu(ctx) {
 *✅ Kuota & Limit IP Custom*
 *✅ Auto Deploy Akun 24 Jam*
 *✅ Support Wildcard*
-*═══════════════════════*
+*════════════════════════════*
 *💬 Silakan pilih menu di bawah untuk order.*
 *🎥 Layanan cocok untuk Streaming & Browsing!*
 *📞 Butuh bantuan? Hubungi ADMIN*
@@ -223,7 +223,7 @@ async function sendMainMenu(ctx) {
 *↪️ Telegram*
 *👤 Admin:* @JesVpnt
 *🌐 Grup:* @jesvpntun
-*═══════════════════════*
+*════════════════════════════*
 *Powered by* ${NAMA_STORE}`;
 
   try {
