@@ -197,21 +197,33 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*Selamat Datang di VPN PREMIUM!*
+  const messageText = `*🛡️ AUTO ORDER VPN PREMIUM🛡️*
+*═══════════════════════*
+*📊 Status Bot*
+*🌐 Server Tersedia :* ${jumlahServer}  
+*👥 Pengguna Aktip :* ${jumlahPengguna}  
+*═══════════════════════*
+*🔥 LAYANAN KAMI:*
+*• SSH & OpenVPN (Support Semua Operator)*
+*• XRAY: VMess / VLESS (TLS & Non-TLS)*
+*• Trojan WS & GFW (Stabil & Cepat)*
+*═══════════════════════*
+*📌 FITUR UNGGULAN:*
+*✅ Full Speed & Low Ping*
+*✅ Support Bug Host / SNI*
+*✅ Masa Aktif Fleksibel*
+*✅ Kuota & Limit IP Custom*
+*✅ Auto Deploy Akun 24 Jam*
+*✅ Support Wildcard*
+*═══════════════════════*
+*💬 Silakan pilih menu di bawah untuk order.*
+*🎥 Layanan cocok untuk Streaming & Browsing!*
+*📞 Butuh bantuan? Hubungi ADMIN*
 
-*Bot otomatis yang memudahkan Anda*
-*membeli layanan VPN dengan cepat, aman,*
-*dan praktis. Nikmati koneksi internet yang*
-*stabil, cepat, dan bebas blokir—cukup dalam*
-*beberapa langkah mudah lewat bot kami.*
-
-*📌 Info Sistem*
-*• Server Aktif:* ${jumlahServer}  
-*• Pengguna Aktif:* ${jumlahPengguna}  
-*• Minimal Topup:* Rp1.000  
-*• Support Group:* @jesvpntun  
-
-*Silakan pilih layanan yang Anda butuhkan:*
+*↪️ Telegram*
+*👤 Admin:* @JesVpnt
+*🌐 Grup:* @jesvpntun
+*═══════════════════════*
 *Powered by* ${NAMA_STORE}`;
 
   try {
