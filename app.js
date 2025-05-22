@@ -634,9 +634,9 @@ async function handleServiceAction(ctx, action) {
   let keyboard;
   if (action === 'create') {
     keyboard = [
-      [{ text: '🍁 AKUN SSH', callback_data: 'create_ssh' }],
-      [{ text: '🎋 AKUN VMESS', callback_data: 'create_vmess' }, { text: '🍂AKUN VLESS', callback_data: 'create_vless' }],
-      [{ text: '🍄 AKUN TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS', callback_data: 'create_shadowsocks' }],
+      [{ text: '🍁 SSH', callback_data: 'create_ssh' }],
+      [{ text: '🎋 VMESS', callback_data: 'create_vmess' }, { text: '🍂 VLESS', callback_data: 'create_vless' }],
+      [{ text: '🍄 TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS', callback_data: 'create_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
