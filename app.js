@@ -197,17 +197,18 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
   }
 
-  const messageText = `*🛡️ AUTO ORDER VPN PREMIUM🛡️*
-*════════════════════════════*
+  const messageText = `*क══════════क⊹⊱✫⊰⊹क══════════क*
+       *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
+*क══════════क⊹⊱✫⊰⊹क══════════क*
 *📊 Status Bot*
 *🌐 Server Tersedia :* ${jumlahServer}  
 *👥 Pengguna Aktip :* ${jumlahPengguna}  
-*════════════════════════════*
+*क══════════क⊹⊱✫⊰⊹क══════════क*
 *🔥 LAYANAN KAMI:*
 *• SSH & OpenVPN (Support Semua Operator)*
 *• XRAY: VMess / VLESS (TLS & Non-TLS)*
 *• Trojan WS & GFW (Stabil & Cepat)*
-*════════════════════════════*
+*क══════════क⊹⊱✫⊰⊹क══════════क*
 *📌 FITUR UNGGULAN:*
 *✅ Full Speed & Low Ping*
 *✅ Support Bug Host / SNI*
@@ -215,7 +216,7 @@ async function sendMainMenu(ctx) {
 *✅ Kuota & Limit IP Custom*
 *✅ Auto Deploy Akun 24 Jam*
 *✅ Support Wildcard*
-*════════════════════════════*
+*क══════════क⊹⊱✫⊰⊹क══════════क*
 *💬 Silakan pilih menu di bawah untuk order.*
 *🎥 Layanan cocok untuk Streaming & Browsing!*
 *📞 Butuh bantuan? Hubungi ADMIN*
@@ -223,7 +224,7 @@ async function sendMainMenu(ctx) {
 *↪️ Telegram*
 *👤 Admin:* @JesVpnt
 *🌐 Grup:* @jesvpntun
-*════════════════════════════*
+*क══════════क⊹⊱✫⊰⊹क══════════क*
 *Powered by* ${NAMA_STORE}`;
 
   try {
