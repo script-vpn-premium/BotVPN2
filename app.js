@@ -165,44 +165,53 @@ async function sendMainMenu(ctx) {
 
   const uptime = os.uptime();
   const days = Math.floor(uptime / (60 * 60 * 24));
-  
   let jumlahServer = 0;
-  try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
-    jumlahServer = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah server:', err.message);
-  }
   let jumlahPengguna = 0;
+  let saldo = 0;
+
   try {
-    const row = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
+    // Hitung jumlah server
+    jumlahServer = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+        if (err) reject(err);
+        else resolve(row ? row.count : 0);
       });
     });
-    jumlahPengguna = row.count;
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil jumlah pengguna:', err.message);
-  }
 
+    // Hitung jumlah pengguna
+    jumlahPengguna = await new Promise((resolve, reject) => {
+      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+        if (err) reject(err);
+        else resolve(row ? row.count : 0);
+      });
+    });
+
+    // Dapatkan saldo pengguna
+    const userId = ctx.from.id;
+    saldo = await new Promise((resolve, reject) => {
+      db.get('SELECT saldo FROM users WHERE user_id = ?', [userId], (err, row) => {
+        if (err) {
+          logger.error('❌ Kesalahan saat memeriksa saldo:', err.message);
+          return reject('❌ *Terjadi kesalahan saat memeriksa saldo Anda. Silakan coba lagi nanti.*');
+        }
+        resolve(row ? row.saldo : 0);
+      });
+    });
+
+  } catch (err) {
+    logger.error('Kesalahan saat mengambil data:', err.message);
+  }
+ const userId = ctx.from.id;
   const messageText = `*क══════════क⊹⊱✫⊰⊹क══════════क*
           *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
 *क══════════क⊹⊱✫⊰⊹क══════════क*
-*📊 Status Bot*
-*🌐 Server Tersedia :* ${jumlahServer}  
-*👥 Pengguna Aktip :* ${jumlahPengguna}  
+📊 *Status Bot*
+
+🕒 Aktif Selama : *${days} hari*
+🌐 Server Tersedia : *${jumlahServer}*
+👥 Pengguna Terdaftar : *${jumlahPengguna}*
+💳 Saldo Kamu : *${saldo}*
+👤 User ID : *${userId}*
 *क══════════क⊹⊱✫⊰⊹क══════════क*
 *🔥 LAYANAN KAMI:*
 *• SSH & OpenVPN (Support Semua Operator)*
