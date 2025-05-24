@@ -155,11 +155,11 @@ async function sendMainMenu(ctx) {
   const keyboard = [
     [
       { text: '➕ Buat Akun', callback_data: 'service_create' },
-      { text: '♻️ Renew akun', callback_data: 'service_renew' }
-    ],
-    [
-      { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
-      { text: '💳 Cek Saldo', callback_data: 'cek_saldo' }
+{ text: '♻️ Renew akun', callback_data: 'service_renew' }
+],
+[
+{ text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
+{ text: '👤 Admin', url: 'https://t.me/JesVpnt' }
     ],
   ];
 
@@ -207,11 +207,11 @@ async function sendMainMenu(ctx) {
 *क══════════क⊹⊱✫⊰⊹क══════════क*
 📊 *Status Bot*
 
-🕒 Aktif Selama : *${days} hari*
-🌐 Server Tersedia : *${jumlahServer}*
-👥 Pengguna Terdaftar : *${jumlahPengguna}*
-💳 Saldo Kamu : *${saldo}*
-👤 User ID : *${userId}*
+*🕒 Aktif Selama :* ${days} hari
+*🌐 Server Tersedia :* ${jumlahServer}
+*👥 Pengguna Terdaftar :* ${jumlahPengguna}
+*💳 Saldo Kamu :* Rp.${saldo}
+*👤 User ID :* ${userId}
 *क══════════क⊹⊱✫⊰⊹क══════════क*
 *🔥 LAYANAN KAMI:*
 *• SSH & OpenVPN (Support Semua Operator)*
