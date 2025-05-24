@@ -2130,8 +2130,8 @@ async function handleDepositState(ctx, userId, data) {
     if (currentAmount.length === 0) {
       return await ctx.answerCbQuery('⚠️ Jumlah tidak boleh kosong!', { show_alert: true });
     }
-    if (parseInt(currentAmount) < 1) {
-      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  1.000 Ya Kak...!!!', { show_alert: true });
+    if (parseInt(currentAmount) < 5000) {
+      return await ctx.answerCbQuery('⚠️ Jumlah minimal top-up adalah  5.000 Ya Kak...!!!', { show_alert: true });
     }
     global.depositState[userId].action = 'confirm_amount';
     await processDeposit(ctx, currentAmount);
