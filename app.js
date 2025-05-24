@@ -159,7 +159,7 @@ async function sendMainMenu(ctx) {
 ],
 [
 { text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
-{ text: '👤 Admin', url: 'https://t.me/JesVpnt' }
+{ text: '⚠️ Bantuan', url: 'https://t.me/JesVpnt' }
     ],
   ];
 
@@ -230,9 +230,7 @@ async function sendMainMenu(ctx) {
 *🎥 Layanan cocok untuk Streaming & Browsing!*
 *📞 Butuh bantuan? Hubungi ADMIN*
 
-*↪️ Telegram*
-*👤 Admin:* @JesVpnt
-*🌐 Grup:* @jesvpntun
+*🌐 Support Grup:* @jesvpntun
 *क══════════क⊹⊱✫⊰⊹क══════════क*
 *Powered by* ${NAMA_STORE}`;
 
