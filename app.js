@@ -202,37 +202,25 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil data:', err.message);
   }
  const userId = ctx.from.id;
-  const messageText = `*क══════════क⊹⊱✫⊰⊹क══════════क*
-          *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-📊 *Status Bot*
-
-*🕒 Aktif Selama :* ${days} hari
-*🌐 Server Tersedia :* ${jumlahServer}
-*👥 Pengguna Terdaftar :* ${jumlahPengguna}
-*💳 Saldo Kamu :* Rp.${saldo}
-*👤 User ID :* ${userId}
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*🔥 LAYANAN KAMI:*
-*• SSH & OpenVPN (Support Semua Operator)*
-*• XRAY: VMess / VLESS (TLS & Non-TLS)*
-*• Trojan WS & GFW (Stabil & Cepat)*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*📌 FITUR UNGGULAN:*
-*✅ Full Speed & Low Ping*
-*✅ Support Bug Host / SNI*
-*✅ Masa Aktif Fleksibel*
-*✅ Kuota & Limit IP Custom*
-*✅ Auto Deploy Akun 24 Jam*
-*✅ Support Wildcard*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*💬 Silakan pilih menu di bawah untuk order.*
-*🎥 Layanan cocok untuk Streaming & Browsing!*
-*📞 Butuh bantuan? Hubungi ADMIN*
-
-*🌐 Support Grup:* @jesvpntun
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*Powered by* ${NAMA_STORE}`;
+  const messageText = `*━━━━━━━━━━━━━━━━━━━━━━━*  
+    *≡  P G E TUNNEL  MENU BOT  ≡*  
+*━━━━━━━━━━━━━━━━━━━━━━━* 
+*🌍 • Server Tersedia :* ${jumlahServer}  
+*👥 • Pengguna :* ${jumlahPengguna}  
+━━━━━━━━━━━━━━━━━━━━━━━*
+*⭐️ FITUR UNGGULAN:*  
+*⚡ • Full Speed & Low Ping*
+*🔧 • Support Bug Host / SNI* 
+*⏳ • Masa Aktif Fleksibel* 
+*📶 • Kuota & Limit IP Custom* 
+*🤖 • Auto Deploy Akun 24 Jam* 
+*🃏 • Support Wildcard*
+*━━━━━━━━━━━━━━━━━━━━━━━*
+*🧑‍💼 • USER PROFILE* 
+*🆔 • User ID :* ${userId}  
+*💰 • Saldo Kamu :* Rp.${saldo}  
+*━━━━━━━━━━━━━━━━━━━━━━━* 
+*👤Powered by* ${NAMA_STORE}`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -649,9 +637,9 @@ async function handleServiceAction(ctx, action) {
     ];
   } else if (action === 'renew') {
     keyboard = [
-      [{ text: 'Perpanjang Ssh/Ovpn', callback_data: 'renew_ssh' }],
-      [{ text: 'Perpanjang Vmess', callback_data: 'renew_vmess' }, { text: 'Perpanjang Vless', callback_data: 'renew_vless' }],
-      [{ text: 'Perpanjang Trojan', callback_data: 'renew_trojan' }, { text: 'Perpanjang Shadowsocks', callback_data: 'renew_shadowsocks' }],
+      [{ text: 'SSH WS', callback_data: 'renew_ssh' }],
+      [{ text: 'VMESS', callback_data: 'renew_vmess' }, { text: 'VLESS', callback_data: 'renew_vless' }],
+      [{ text: 'TROJAN', callback_data: 'renew_trojan' }, { text: 'Perpanjang Shadowsocks', callback_data: 'renew_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   }
