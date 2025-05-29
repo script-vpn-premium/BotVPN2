@@ -153,14 +153,10 @@ bot.command('admin', async (ctx) => {
 });
 async function sendMainMenu(ctx) {
   const keyboard = [
-    [
-      { text: '➕ Buat Akun', callback_data: 'service_create' },
-{ text: '♻️ Renew akun', callback_data: 'service_renew' }
-],
-[
-{ text: '💰 TopUp Saldo', callback_data: 'topup_saldo' },
-{ text: '⚠️ Bantuan', url: 'https://t.me/JesVpnt' }
-    ],
+    [{ text: '➕ BUAT AKUN', callback_data: 'service_create' }],
+    [{ text: '♻️ RENEW AKUN', callback_data: 'service_renew' }],
+    [{ text: '💰 TOP-UP', callback_data: 'topup_saldo' }],
+    [{ text: '👤 ADMIN', url: 'https://t.me/JesVpnt' }],
   ];
 
   const uptime = os.uptime();
@@ -202,37 +198,25 @@ async function sendMainMenu(ctx) {
     logger.error('Kesalahan saat mengambil data:', err.message);
   }
  const userId = ctx.from.id;
-  const messageText = `*क══════════क⊹⊱✫⊰⊹क══════════क*
-          *🛡️ AUTO ORDER VPN PREMIUM 🛡️*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-📊 *Status Bot*
-
-*🕒 Aktif Selama :* ${days} hari
-*🌐 Server Tersedia :* ${jumlahServer}
-*👥 Pengguna Terdaftar :* ${jumlahPengguna}
-*💳 Saldo Kamu :* Rp.${saldo}
-*👤 User ID :* ${userId}
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*🔥 LAYANAN KAMI:*
-*• SSH & OpenVPN (Support Semua Operator)*
-*• XRAY: VMess / VLESS (TLS & Non-TLS)*
-*• Trojan WS & GFW (Stabil & Cepat)*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*📌 FITUR UNGGULAN:*
-*✅ Full Speed & Low Ping*
-*✅ Support Bug Host / SNI*
-*✅ Masa Aktif Fleksibel*
-*✅ Kuota & Limit IP Custom*
-*✅ Auto Deploy Akun 24 Jam*
-*✅ Support Wildcard*
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*💬 Silakan pilih menu di bawah untuk order.*
-*🎥 Layanan cocok untuk Streaming & Browsing!*
-*📞 Butuh bantuan? Hubungi ADMIN*
-
-*🌐 Support Grup:* @jesvpntun
-*क══════════क⊹⊱✫⊰⊹क══════════क*
-*Powered by* ${NAMA_STORE}`;
+  const messageText = `
+━━━━━━━━━━━━━━━━━━━━━━
+      ≡  ADMIN PANEL MENU  ≡
+━━━━━━━━━━━━━━━━━━━━━━
+Welcome to *${NAMA_STORE}*🚀
+Bot VPN serba otomatis untuk 
+membeli layanan VPN dengan 
+mudah dan cepat Nikmati 
+kemudahan dan kecepatan
+dalam layanan VPN 
+dengan bot kami!
+━━━━━━━━━━━━━━━━━━━━━━
+👤 Informasi Member
+*💵 Saldo Kamu:* Rp.${saldo}
+*🆔 User ID:* ${userId}
+*🖥️ Server Tersedia:* ${jumlahServer}
+*👤 Jumlah Pengguna:* ${jumlahPengguna}
+*📣 Support Grup:* @jesvpntun
+━━━━━━━━━━━━━━━━━━━━━━`;
 
   try {
     if (ctx.updateType === 'callback_query') {
