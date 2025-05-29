@@ -153,11 +153,11 @@ bot.command('admin', async (ctx) => {
 });
 async function sendMainMenu(ctx) {
   const keyboard = [
-    [{ text: ' BUAT AKUN', callback_data: 'service_create' }],
-    [{ text: ' RENEW AKUN', callback_data: 'service_renew' }],
-    [{ text: ' TOP-UP SALDO', callback_data: 'topup_saldo' }],
-    [{ text: ' CS ADMIN', url: 'https://t.me/JesVpnt' }],
-  ];
+  [{ text: '📂 MENU AKUN', callback_data: 'service_create' }],
+  [{ text: '🔄 MENU RENEW', callback_data: 'service_renew' }],
+  [{ text: '💰 TOP-UP SALDO', callback_data: 'topup_saldo' }],
+  [{ text: '📞 HUBUNGI ADMIN', url: 'https://t.me/JesVpnt' }],
+];
 
   const uptime = os.uptime();
   const days = Math.floor(uptime / (60 * 60 * 24));
