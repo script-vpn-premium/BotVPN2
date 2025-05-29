@@ -153,10 +153,10 @@ bot.command('admin', async (ctx) => {
 });
 async function sendMainMenu(ctx) {
   const keyboard = [
-    [{ text: '➕ BUAT AKUN', callback_data: 'service_create' }],
-    [{ text: '♻️ RENEW AKUN', callback_data: 'service_renew' }],
-    [{ text: '💰 TOP-UP', callback_data: 'topup_saldo' }],
-    [{ text: '👤 ADMIN', url: 'https://t.me/JesVpnt' }],
+    [{ text: ' BUAT AKUN', callback_data: 'service_create' }],
+    [{ text: ' RENEW AKUN', callback_data: 'service_renew' }],
+    [{ text: ' TOP-UP SALDO', callback_data: 'topup_saldo' }],
+    [{ text: ' CS ADMIN', url: 'https://t.me/JesVpnt' }],
   ];
 
   const uptime = os.uptime();
@@ -200,7 +200,7 @@ async function sendMainMenu(ctx) {
  const userId = ctx.from.id;
   const messageText = `
 ━━━━━━━━━━━━━━━━━━━━━━
-      ≡  ADMIN PANEL MENU  ≡
+       *≡  ADMIN PANEL MENU  ≡*
 ━━━━━━━━━━━━━━━━━━━━━━
 Welcome to *${NAMA_STORE}*🚀
 Bot VPN serba otomatis untuk 
@@ -216,7 +216,7 @@ dengan bot kami!
 *🖥️ Server Tersedia:* ${jumlahServer}
 *👤 Jumlah Pengguna:* ${jumlahPengguna}
 *📣 Support Grup:* @jesvpntun
-━━━━━━━━━━━━━━━━━━━━━━`;
+━━━━━━━━━━━━━━━━━━━`;
 
   try {
     if (ctx.updateType === 'callback_query') {
@@ -626,9 +626,9 @@ async function handleServiceAction(ctx, action) {
   let keyboard;
   if (action === 'create') {
     keyboard = [
-      [{ text: '🍁 SSH', callback_data: 'create_ssh' }],
-      [{ text: '🎋 VMESS', callback_data: 'create_vmess' }, { text: '🍂 VLESS', callback_data: 'create_vless' }],
-      [{ text: '🍄 TROJAN', callback_data: 'create_trojan' }, { text: '🪴  SHADOWSOCKS', callback_data: 'create_shadowsocks' }],
+      [{ text: '🪄 SSH WS 🪄', callback_data: 'create_ssh' }],
+      [{ text: '🪄 VMESS 🪄', callback_data: 'create_vmess' }, { text: '🪄 VLESS 🪄', callback_data: 'create_vless' }],
+      [{ text: '🪄 TROJAN 🪄', callback_data: 'create_trojan' }, { text: '🪄  SHADOWSOCKS 🪄', callback_data: 'create_shadowsocks' }],
       [{ text: '🔙 Kembali', callback_data: 'send_main_menu' }]
     ];
   } else if (action === 'renew') {
