@@ -153,6 +153,7 @@ bot.command('admin', async (ctx) => {
 });
 async function sendMainMenu(ctx) {
 const keyboard = [
+  [
     { text: 'Buat Ssh', callback_data: 'create_ssh' },
     { text: 'Buat Vmess', callback_data: 'create_vmess' }
   ],
