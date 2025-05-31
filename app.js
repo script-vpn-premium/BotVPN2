@@ -152,11 +152,22 @@ bot.command('admin', async (ctx) => {
   await sendAdminMenu(ctx);
 });
 async function sendMainMenu(ctx) {
-  const keyboard = [
-  [{ text: 'Buat Akun', callback_data: 'service_create' }],
-  [{ text: 'Perpanjang', callback_data: 'service_renew' }],
-  [{ text: 'TopUp Saldo', callback_data: 'topup_saldo' }],
-  [{ text: 'Bantuan Admin', url: 'https://t.me/JesVpnt' }],
+const keyboard = [
+    { text: 'Buat Ssh', callback_data: 'create_ssh' },
+    { text: 'Buat Vmess', callback_data: 'create_vmess' }
+  ],
+  [
+    { text: 'Buat Vless', callback_data: 'create_vless' },
+    { text: 'Buat Trojan', callback_data: 'create_trojan' }
+  ],
+  [
+    { text: 'Shadowsocks', callback_data: 'create_shadowsocks' },
+    { text: 'Perpanjang', callback_data: 'service_renew' }
+  ],
+  [
+    { text: 'TopUp Saldo', callback_data: 'topup_saldo' },
+    { text: 'Bantuan Admin', url: 'https://t.me/JesVpnt' }
+  ]
 ];
 
   const uptime = os.uptime();
