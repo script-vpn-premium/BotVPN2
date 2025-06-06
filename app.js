@@ -171,73 +171,89 @@ const keyboard = [
   ]
 ];
 
-    // Ambil uptime server (dalam detik)
 const uptime = os.uptime();
 const days = Math.floor(uptime / (60 * 60 * 24));
 const hours = Math.floor((uptime % (60 * 60 * 24)) / (60 * 60));
 const minutes = Math.floor((uptime % (60 * 60)) / 60);
 const seconds = Math.floor(uptime % 60);
-
 const uptimeFormatted = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-  let jumlahServer = 0;
-  let jumlahPengguna = 0;
-  let saldo = 0;
+// Ambil waktu dan tanggal
+const currentDate = new Date();
+const formattedDate = new Intl.DateTimeFormat('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+}).format(currentDate);
 
-  try {
-    // Hitung jumlah server
-    jumlahServer = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
-        if (err) reject(err);
-        else resolve(row ? row.count : 0);
-      });
+const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const currentDay = dayNames[currentDate.getDay()];
+
+const timeNow = currentDate.toTimeString().split(' ')[0];
+
+let jumlahServer = 0;
+let jumlahPengguna = 0;
+let saldo = 0;
+
+try {
+  // Hitung jumlah server
+  jumlahServer = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM Server', (err, row) => {
+      if (err) reject(err);
+      else resolve(row ? row.count : 0);
     });
+  });
 
-    // Hitung jumlah pengguna
-    jumlahPengguna = await new Promise((resolve, reject) => {
-      db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-        if (err) reject(err);
-        else resolve(row ? row.count : 0);
-      });
+  // Hitung jumlah pengguna
+  jumlahPengguna = await new Promise((resolve, reject) => {
+    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
+      if (err) reject(err);
+      else resolve(row ? row.count : 0);
     });
+  });
 
-    // Dapatkan saldo pengguna
-    const userId = ctx.from.id;
-    saldo = await new Promise((resolve, reject) => {
-      db.get('SELECT saldo FROM users WHERE user_id = ?', [userId], (err, row) => {
-        if (err) {
-          logger.error('❌ Kesalahan saat memeriksa saldo:', err.message);
-          return reject('❌ *Terjadi kesalahan saat memeriksa saldo Anda. Silakan coba lagi nanti.*');
-        }
-        resolve(row ? row.saldo : 0);
-      });
+  // Dapatkan saldo pengguna
+  const userId = ctx.from.id;
+  saldo = await new Promise((resolve, reject) => {
+    db.get('SELECT saldo FROM users WHERE user_id = ?', [userId], (err, row) => {
+      if (err) {
+        logger.error('❌ Kesalahan saat memeriksa saldo:', err.message);
+        return reject('❌ *Terjadi kesalahan saat memeriksa saldo Anda. Silakan coba lagi nanti.*');
+      }
+      resolve(row ? row.saldo : 0);
     });
+  });
 
-  } catch (err) {
-    logger.error('Kesalahan saat mengambil data:', err.message);
-  }
- const userId = ctx.from.id;
-  const messageText = `
+} catch (err) {
+  logger.error('Kesalahan saat mengambil data:', err.message);
+}
+
+const userId = ctx.from.id;
+const username = ctx.from.username ? `@${ctx.from.username}` : 'Tidak tersedia';
+
+const messageText = `
 ━━━━━━━━━━━━━━━━━━━━━━
        *≡  ADMIN PANEL MENU  ≡*
 ━━━━━━━━━━━━━━━━━━━━━━
-Welcome to *${NAMA_STORE}*🚀
+Welcome to *${NAMA_STORE}* 🚀
 Bot VPN serba otomatis untuk 
 membeli layanan VPN dengan 
-mudah dan cepat Nikmati 
-kemudahan dan kecepatan
+mudah dan cepat. Nikmati 
+kemudahan & kecepatan 
 dalam layanan VPN 
 dengan bot kami!
 ━━━━━━━━━━━━━━━━━━━━━━
 👤 Informasi Member
+*🕒 Jam:* ${timeNow}
+*📅 Hari Ini:* ${currentDay}, ${formattedDate}
 *⏱️ Bot Aktif:* ${uptimeFormatted}
 *💵 Saldo Kamu:* Rp.${saldo}
-*🆔 User ID:* ${userId}
+*🆔 User ID:* {userId}
+*🔖 Username:* ${username}
 *🖥️ Server Tersedia:* ${jumlahServer}
 *👤 Jumlah Pengguna:* ${jumlahPengguna}
 *📣 Support Grup:* @jesvpntun
-━━━━━━━━━━━━━━━━━━━`;
-
+━━━━━━━━━━━━━━━━━━━━━━`;
   try {
     if (ctx.updateType === 'callback_query') {
       await ctx.editMessageText(messageText, {
