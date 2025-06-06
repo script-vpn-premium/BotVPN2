@@ -230,7 +230,7 @@ dalam layanan VPN
 dengan bot kami!
 ━━━━━━━━━━━━━━━━━━━━━━
 👤 Informasi Member
-*⏱️ Bot Aktif Selama:* ${uptimeFormatted}
+*⏱️ Bot Aktif:* ${uptimeFormatted}
 *💵 Saldo Kamu:* Rp.${saldo}
 *🆔 User ID:* ${userId}
 *🖥️ Server Tersedia:* ${jumlahServer}
