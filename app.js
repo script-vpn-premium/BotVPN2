@@ -245,10 +245,9 @@ dengan bot kami!
 ━━━━━━━━━━━━━━━━━━━━━━
 👤 Informasi Member
 *🕒 Jam:* ${timeNow}
-*📅 Hari Ini:* ${currentDay}, ${formattedDate}
+*📅 Hari:* ${currentDay}, ${formattedDate}
 *⏱️ Bot Aktif:* ${uptimeFormatted}
 *💵 Saldo Kamu:* Rp.${saldo}
-*🆔 User ID:* {userId}
 *🔖 Username:* ${username}
 *🖥️ Server Tersedia:* ${jumlahServer}
 *👤 Jumlah Pengguna:* ${jumlahPengguna}
