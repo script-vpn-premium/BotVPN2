@@ -115,7 +115,7 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
 const userState = {};
 logger.info('User state initialized');
 
-bot.command(['start', 'menu'], async (ctx) => {
+bot.command(['start6435', 'menu'], async (ctx) => {
   logger.info('Start or Menu command received');
   
   const userId = ctx.from.id;
