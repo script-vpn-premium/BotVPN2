@@ -267,7 +267,7 @@ layanan VPN dengan mudah, cepat,
 dan aman. Nikmati kenyamanan  
 transaksi hanya lewat bot 🙂
 ━━━━━━━━━━━━━━━━━━━━━━
-➡️ *» Trial 1x sehari*
+➡️ *» Trial 2x sehari*
 💳 *» Min TopUp Rp.3000*
 💳 *» Saldo kamu Rp.${saldo}*
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -1062,8 +1062,8 @@ bot.action(/^(create|renew|trial)_username_(vmess|vless|trojan|shadowsocks|ssh)_
 
       const trialCount = row?.count || 0;
 
-      if (trialCount >= 1) {
-        return ctx.reply('⚠️ *Kamu sudah trial hari ini, 3x Gass Order* 😖', { parse_mode: 'Markdown' });
+      if (trialCount >= 2) {
+        return ctx.reply('⚠️ *Kamu sudah trial hari ini, 2x Gass Order* 😖', { parse_mode: 'Markdown' });
       }
 
       await handleTrial(ctx, type, serverId);
